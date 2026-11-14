@@ -4,3 +4,6 @@ node_modules/
 .env*
 .dev.vars*
 *.log
+.dados-locais/
+!app/.env.gestao
+!app/.env.teste

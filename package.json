@@ -1,0 +1,13 @@
+{
+  "name": "jcr-marilia-site",
+  "private": true,
+  "type": "module",
+  "description": "Site e plataforma da JCR Marília",
+  "scripts": {
+    "local": "node scripts/servidor-local.mjs 8888",
+    "build:painel": "cd app && npm install && npm run build"
+  },
+  "dependencies": {
+    "@netlify/blobs": "^11.1.9"
+  }
+}

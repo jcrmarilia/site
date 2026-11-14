@@ -1,0 +1,22 @@
+{
+  "name": "jcr-painel",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "rm -rf ../site/gestao/app ../site/testes/app && vite build --mode gestao && vite build --mode teste",
+    "dev": "vite --mode gestao"
+  },
+  "dependencies": {
+    "lucide-react": "^1.73.0",
+    "qrcode": "^1.5.4",
+    "react": "^19.3.1",
+    "react-dom": "^19.3.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.5",
+    "@vitejs/plugin-react": "^6.3.0",
+    "tailwindcss": "^4.3.5",
+    "vite": "^8.3.8"
+  },
+  "private": true,
+  "type": "module"
+}

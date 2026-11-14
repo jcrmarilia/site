@@ -1,12 +1,16 @@
-# Netlify — publica a pasta "site" a cada atualização no GitHub (sem etapa de build)
+# Netlify — publica a pasta "site" e a API (netlify/functions) a cada atualização no GitHub.
+# O painel já vai compilado em site/gestao e site/testes (fonte em app/, compilar com: cd app && npm run build).
 [build]
   publish = "site"
   command = ""
 
-# ---------- Endereços curtos ----------
-# Os sistemas de cadastro, gestão e testes ainda rodam no endereço original.
-# Quando forem migrados, basta trocar o destino aqui: links e QR Codes já divulgados continuam valendo.
+# ---------- Funções (API da plataforma) ----------
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["shared/**"]
 
+# ---------- Endereços ----------
 [[redirects]]
   from = "/bio"
   to = "/"
@@ -18,34 +22,20 @@
   status = 301
 
 [[redirects]]
-  from = "/cadastro"
-  to = "https://comunhao-jcr-cadastro.castormariliastoanto.chatgpt.site/"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/gestao"
-  to = "https://comunhao-jcr-gestao.castormariliastoanto.chatgpt.site/"
-  status = 302
-  force = true
-
-[[redirects]]
-  from = "/testes/cadastro"
-  to = "https://jcr-marilia-testes.castormariliastoanto.chatgpt.site/cadastro"
-  status = 302
-  force = true
-
-[[redirects]]
   from = "/avaliacoes"
-  to = "https://jcr-marilia-testes.castormariliastoanto.chatgpt.site/avaliacoes"
+  to = "/gestao/#avaliacoes"
   status = 302
-  force = true
+
+# Painel (aplicativo de página única): qualquer endereço dentro de /gestao e /testes abre o painel
+[[redirects]]
+  from = "/gestao/*"
+  to = "/gestao/index.html"
+  status = 200
 
 [[redirects]]
-  from = "/testes"
-  to = "https://jcr-marilia-testes.castormariliastoanto.chatgpt.site/"
-  status = 302
-  force = true
+  from = "/testes/*"
+  to = "/testes/index.html"
+  status = 200
 
 [[redirects]]
   from = "/hub/*"
@@ -53,6 +43,16 @@
   status = 200
 
 # ---------- Cabeçalhos ----------
+[[headers]]
+  for = "/gestao/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/testes/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
 [[headers]]
   for = "/hub/*"
   [headers.values]

@@ -41,7 +41,7 @@ select.in{width:100%;border:1px solid var(--line);border-radius:12px;padding:11p
 <body>
 <header class="top"><div class="wrap"><span class="logo">JCR</span><div><h1>Hub JCR Marília</h1><p>Todos os links da igreja em um só lugar.</p></div></div></header>
 <main class="wrap">
-  <div class="aviso"><b>Dica:</b> use os endereços curtos (<code>jcrmarilia.netlify.app/cadastro</code>, <code>/gestao</code>…). Se algum sistema mudar de lugar, só o redirecionamento é atualizado e os links e QR Codes já divulgados continuam funcionando.</div>
+  <div class="aviso"><b>Tudo em um só endereço:</b> cadastro, gestão e ambiente de testes funcionam dentro de <code>jcrmarilia.netlify.app</code>. Os links e QR Codes desta página são fixos e podem ser impressos.</div>
   <div id="grupos"></div>
   <section class="grupo">
     <h2>QR Code para divulgar</h2>
@@ -75,7 +75,7 @@ select.in{width:100%;border:1px solid var(--line);border-radius:12px;padding:11p
       {nome:'Gestão da igreja', desc:'Membros, chamada dos cultos, relatórios, financeiro e mensagens. Acesso restrito.', url:L.gestao, icone:'lock', cls:'lock'},
       {nome:'Ambiente de testes', desc:'Painel com dados fictícios para treinar e avaliar o sistema.', url:L.testes, icone:'flask'},
       {nome:'Cadastro do ambiente de testes', desc:'Formulário de visitante que grava só no banco de testes.', url:L.testes+'/cadastro', icone:'user'},
-      {nome:'Avaliações do teste', desc:'Comentários deixados por quem testou. Só o administrador lê.', url:L.avaliacoes, icone:'star'}
+      {nome:'Avaliações do teste', desc:'Comentários deixados por quem testou. Só administradores leem (exige login).', url:L.avaliacoes, icone:'star'}
     ]}
   ];
   const redes = JCR.redesAtivas();
