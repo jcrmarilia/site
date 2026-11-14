@@ -10,6 +10,22 @@ window.IGREJA = {
   boasVindas: 'Que bom ter você aqui. Queremos conhecer você e caminhar juntos.',
   versiculo: { texto: 'Assim nós, que somos muitos, somos um só corpo em Cristo.', ref: 'Romanos 12:5' },
 
+  // Três frases curtas que aparecem no topo da página inicial
+  destaques: [
+    'Uma família para pertencer e caminhar junto.',
+    'A Palavra de Deus anunciada com amor e verdade.',
+    'Portas abertas para você e sua família.'
+  ],
+  // Missão e visão (aparecem em "Quem somos"). Vazio = não aparece.
+  missao: '',
+  visao: '',
+  // Palavras que giram em volta do logo
+  palavrasSelo: ['Família', 'Fé', 'Comunidade', 'Igreja', 'Amor', 'Jesus'],
+  // Frase da faixa que rola na tela
+  letreiro: 'Venha nos visitar',
+  // Vídeo de fundo do topo da página inicial: cole o link de um vídeo do YouTube (opcional)
+  videoFundo: '',
+
   // Endereço — "mapa" é o texto pesquisado no Google Maps (pode ser o próprio endereço)
   endereco: {
     rua: '',            // ex.: 'Rua Exemplo, 123'

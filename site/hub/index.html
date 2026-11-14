@@ -5,57 +5,64 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <title>Hub · JCR Marília</title>
-<meta name="theme-color" content="#142d50">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<meta name="theme-color" content="#04060c">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@400;500&family=Urbanist:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/jcr.css">
+<script>document.documentElement.classList.add('js')</script>
 <style>
-header.top{background:var(--navy);color:#fff;padding:36px 0 30px}
-header.top .wrap{display:flex;gap:16px;align-items:center}
-header.top .logo{background:#fff;color:var(--navy);width:54px;height:54px;font-size:1.15rem}
-header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,4vw,2.3rem)}
-header.top p{margin:4px 0 0;color:#c8d6ea}
-main{padding:30px 0 60px}
-.grupo{margin-bottom:34px}
-.grupo h2{font-family:var(--sans);font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-3);margin:0 0 12px}
-.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
-.lc{padding:18px;display:flex;flex-direction:column;gap:10px}
-.lc .t{display:flex;gap:12px;align-items:flex-start}
-.lc .ic{width:42px;height:42px;border-radius:12px;background:var(--sky);color:var(--navy);display:flex;align-items:center;justify-content:center;flex:none}
-.lc .ic.gold{background:var(--gold-soft);color:#8a6312}
-.lc .ic.lock{background:#e9edf3;color:#3b4a60}
-.lc b{display:block;font-size:1.02rem}
-.lc small{color:var(--muted);display:block;line-height:1.4}
-.lc code{font-size:.8rem;color:var(--navy-3);background:var(--bg);padding:4px 8px;border-radius:8px;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace}
+.cab-hub{position:relative;padding:150px 0 60px;background:radial-gradient(60% 90% at 80% 0%,rgba(21,84,200,.45),transparent 70%),var(--preto);overflow:hidden}
+.cab-hub .wrap{display:flex;gap:28px;align-items:center;flex-wrap:wrap}
+.cab-hub img{width:110px;height:110px;filter:drop-shadow(0 18px 40px rgba(21,84,200,.5));animation:flutuar 6s ease-in-out infinite}
+main.hub{padding:30px 0 90px}
+.aviso{background:rgba(79,156,255,.08);border:1px solid rgba(79,156,255,.3);border-radius:14px;padding:16px 20px;font-size:.95rem;margin-bottom:40px;color:#d6e2f3}
+.aviso code,.lc code{font-family:ui-monospace,Menlo,Consolas,monospace}
+.grupo{margin-bottom:48px}
+.grupo h2{font-family:var(--titulo);font-size:.9rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--azul-brilho);margin:0 0 16px}
+.cards{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.lc{display:flex;flex-direction:column;gap:12px}
+.lc .t{display:flex;gap:14px;align-items:flex-start}
+.lc .ic{width:46px;height:46px;border-radius:14px;background:rgba(79,156,255,.12);color:var(--azul-brilho);display:flex;align-items:center;justify-content:center;flex:none;transition:transform .2s linear}
+.lc:hover .ic{transform:rotate(24deg)}
+.lc .ic.gold{background:var(--azul);color:#fff}
+.lc .ic.lock{background:rgba(255,255,255,.08);color:var(--prata)}
+.lc b{display:block;font-size:1.05rem;font-weight:700;color:#fff}
+.lc small{color:var(--texto-2);display:block;line-height:1.45;font-family:var(--lista)}
+.lc code{font-size:.8rem;color:var(--prata);background:rgba(255,255,255,.05);padding:6px 10px;border-radius:8px;word-break:break-all}
 .lc .acts{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
-.lc .btn{padding:.55rem .95rem;font-size:.85rem}
-.qr-area{display:grid;gap:18px;padding:22px}
+.lc .btn{padding:.6rem 1.1rem;font-size:.85rem}
+.btn.navy{background:#fff;color:var(--tinta)} .btn.navy:hover{background:var(--azul-brilho);color:#021a44}
+.lc .btn:not(.navy){border-color:rgba(255,255,255,.25);color:#fff;background:transparent} .lc .btn:not(.navy):hover{background:#fff;color:var(--tinta)}
+.qr-area{display:grid;gap:24px}
 @media(min-width:760px){.qr-area{grid-template-columns:260px 1fr;align-items:center}}
-#qr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:1}
+#qr{background:#fff;border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:1}
 #qr img,#qr canvas{width:100%!important;height:auto!important}
-select.in{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;background:#fff;margin:8px 0 12px}
-.aviso{background:var(--gold-soft);border:1px solid #ecdcb4;border-radius:14px;padding:14px 16px;font-size:.92rem;margin-bottom:28px}
+select.in{width:100%;border:1px solid rgba(255,255,255,.2);border-radius:12px;padding:12px;font:inherit;background:var(--grafite-2);color:#fff;margin:10px 0 14px}
+.qr-area .btn.navy{background:#fff;color:var(--tinta)}
+#qr-copiar{border-color:rgba(255,255,255,.25);color:#fff;background:transparent}
 </style>
 </head>
 <body>
-<header class="top"><div class="wrap"><span class="logo">JCR</span><div><h1>Hub JCR Marília</h1><p>Todos os links da igreja em um só lugar.</p></div></div></header>
-<main class="wrap">
+<header id="topo"></header>
+<section class="cab-hub"><div class="wrap"><img src="/assets/logo-jcr-320.webp" alt="" width="110" height="110"><div><p class="rotulo" data-anima="sobe">JCR Marília</p><h1 class="titulo" data-anima="sobe" data-atraso="100">Hub de links</h1><p class="texto" data-anima="sobe" data-atraso="200">Todos os endereços da igreja em um só lugar.</p></div></div></section>
+<main class="wrap hub">
   <div class="aviso"><b>Tudo em um só endereço:</b> cadastro, gestão e ambiente de testes funcionam dentro de <code>jcrmarilia.netlify.app</code>. Os links e QR Codes desta página são fixos e podem ser impressos.</div>
   <div id="grupos"></div>
   <section class="grupo">
     <h2>QR Code para divulgar</h2>
-    <div class="card qr-area">
+    <div class="cartao qr-area" data-anima="sobe">
       <div id="qr"></div>
       <div>
-        <b style="font-size:1.1rem">Gere o QR Code de qualquer link</b>
+        <b style="font-size:1.2rem;font-weight:800">Gere o QR Code de qualquer link</b>
         <select class="in" id="qr-sel"></select>
         <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn navy" id="qr-baixar">Baixar imagem</button><button class="btn" id="qr-copiar">Copiar link</button></div>
-        <small style="display:block;color:var(--muted);margin-top:12px">Imprima o QR do cadastro na recepção e no telão para os visitantes.</small>
+        <small style="display:block;color:var(--texto-2);margin-top:12px">Imprima o QR do cadastro na recepção e no telão para os visitantes.</small>
       </div>
     </div>
   </section>
 </main>
+<footer id="rodape"></footer>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <script src="/assets/igreja.js"></script>
 <script src="/assets/comum.js"></script>
@@ -86,17 +93,18 @@ select.in{width:100%;border:1px solid var(--line);border-radius:12px;padding:11p
 
   const abs = u => /^https?:/.test(u) ? u : urlAbs(u);
   document.getElementById('grupos').innerHTML = GRUPOS.map(g=>`<section class="grupo"><h2>${esc(g.titulo)}</h2><div class="cards">${g.itens.map(i=>`
-    <div class="card lc"><div class="t"><span class="ic ${i.cls||''}">${ic(i.icone)}</span><div><b>${esc(i.nome)}</b><small>${esc(i.desc)}</small></div></div>
+    <div class="cartao lc" data-anima="sobe"><div class="t"><span class="ic ${i.cls||''}">${ic(i.icone)}</span><div><b>${esc(i.nome)}</b><small>${esc(i.desc)}</small></div></div>
       <code>${esc(abs(i.url).replace(/^https?:\/\//,''))}</code>
       <div class="acts"><a class="btn navy" href="${esc(i.url)}" ${i.ext||/^https?:/.test(i.url)?'target="_blank" rel="noopener"':''}>Abrir</a><button class="btn" data-copiar="${esc(abs(i.url))}">${ic('copy')} Copiar</button></div></div>`).join('')}</div></section>`).join('');
   document.addEventListener('click', e=>{ const b=e.target.closest('[data-copiar]'); if(b) copiar(b.dataset.copiar, b); });
+  JCR.topo(); JCR.rodape(); JCR.animar();
 
   // QR Code
   const sel=document.getElementById('qr-sel');
   const opcoes=[['Cadastro de visitantes',L.cadastro],['Link da bio','/'],['Página inicial',L.paginaInicial],['Ambiente de testes',L.testes]];
   sel.innerHTML=opcoes.map(([n,u])=>`<option value="${esc(abs(u))}">${esc(n)} — ${esc(abs(u).replace(/^https?:\/\//,''))}</option>`).join('');
   const box=document.getElementById('qr');
-  function gerar(){ box.innerHTML=''; if(window.QRCode) new QRCode(box,{text:sel.value,width:600,height:600,colorDark:'#142d50',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); else box.textContent='Sem conexão para gerar o QR Code.'; }
+  function gerar(){ box.innerHTML=''; if(window.QRCode) new QRCode(box,{text:sel.value,width:600,height:600,colorDark:'#04163a',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); else box.textContent='Sem conexão para gerar o QR Code.'; }
   sel.onchange=gerar; gerar();
   document.getElementById('qr-copiar').onclick=e=>copiar(sel.value,e.currentTarget);
   document.getElementById('qr-baixar').onclick=()=>{ const cv=box.querySelector('canvas'); const im=box.querySelector('img'); const url=cv?cv.toDataURL('image/png'):im&&im.src; if(!url) return;

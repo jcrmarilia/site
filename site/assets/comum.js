@@ -36,7 +36,11 @@
     link:'<path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/>',
     share:'<circle cx="6" cy="12" r="2.5"/><circle cx="18" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="m8.2 10.8 7.6-3.6M8.2 13.2l7.6 3.6"/>',
     book:'<path d="M4 4.5A1.5 1.5 0 0 1 5.5 3H20v15H5.5A1.5 1.5 0 0 0 4 19.5zM4 19.5A1.5 1.5 0 0 0 5.5 21H20v-3"/>',
-    map:'<path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/>'
+    map:'<path d="m9 4-6 2.5v13.5l6-2.5 6 2.5 6-2.5V4l-6 2.5z"/><path d="M9 4v13.5M15 6.5V20"/>',
+    check:'<circle cx="12" cy="12" r="9"/><path d="m8 12.5 2.8 2.8L16.5 9.5"/>',
+    menu:'<path d="M4 7h16M4 12h16M4 17h10"/>',
+    x:'<path d="M6 6l12 12M18 6 6 18"/>',
+    play:'<circle cx="12" cy="12" r="9"/><path d="m10 8.5 5 3.5-5 3.5z" fill="currentColor"/>'
   };
   const ic = (n, cls='') => `<svg class="ico ${cls}" viewBox="0 0 24 24" aria-hidden="true">${ICONES[n]||''}</svg>`;
 
@@ -90,6 +94,48 @@
   }
   const urlAbs = p => location.origin + p;
 
-  window.JCR = { I, DIAS, DIAS_L, esc, hora, ic, redesAtivas, enderecoTexto, mapaQuery, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, pendente, copiar, urlAbs, ymd };
+  // ---------- topo, rodapé e animações compartilhados por todas as páginas ----------
+  const MENU = [['Início','/paginainicial'],['Programação','/paginainicial#programacao'],['Agenda','/paginainicial#agenda'],['Quem somos','/paginainicial#sobre'],['Localização','/paginainicial#localizacao'],['Contato','/paginainicial#contato']];
+  function topo(ativo=''){
+    const el=document.getElementById('topo'); if(!el) return;
+    el.className='topo';
+    el.innerHTML=`<div class="wrap"><a class="marca" href="/paginainicial"><img src="/assets/logo-jcr-96.png" alt="" width="48" height="48"><span>JCR Marília<small>Jesus Cristo é a Resposta</small></span></a>
+      <nav class="menu" aria-label="Menu principal">${MENU.map(([t,u])=>`<a href="${u}" class="${t===ativo?'ativo':''}">${t}</a>`).join('')}</nav>
+      <a class="btn btn-branco" href="/cadastro">Sou visitante</a>
+      <button class="abre-menu" aria-label="Abrir menu" aria-expanded="false">${ic('menu')}</button></div>`;
+    const mm=document.createElement('nav'); mm.className='menu-movel'; mm.setAttribute('aria-label','Menu');
+    mm.innerHTML=`<button class="abre-menu fecha" aria-label="Fechar menu">${ic('x')}</button>${MENU.map(([t,u])=>`<a href="${u}">${t}</a>`).join('')}<a href="/cadastro" style="color:var(--azul-brilho)">Sou visitante</a>`;
+    document.body.appendChild(mm);
+    const abrir=v=>{mm.classList.toggle('aberto',v);document.body.style.overflow=v?'hidden':'';el.querySelector('.abre-menu').setAttribute('aria-expanded',v)};
+    el.querySelector('.abre-menu').onclick=()=>abrir(true);
+    mm.querySelector('.fecha').onclick=()=>abrir(false);
+    mm.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>abrir(false)));
+    const solido=()=>el.classList.toggle('solido',scrollY>40); solido(); addEventListener('scroll',solido,{passive:true});
+  }
+  function rodape(){
+    const el=document.getElementById('rodape'); if(!el) return;
+    el.className='rodape';
+    const e=I.endereco||{};
+    el.innerHTML=`<div class="wrap"><div class="colunas">
+      <div><img src="/assets/logo-jcr-320.webp" alt="JCR Marília" width="84" height="84"><p style="max-width:34ch;margin:0">${esc(I.lema)}. ${esc(I.nomeCompleto)} em ${esc(e.cidade||'Marília - SP')}.</p>
+        <div class="sociais">${redesAtivas().map(r=>`<a href="${esc(r.u)}" target="_blank" rel="noopener" aria-label="${esc(r.nome)}">${ic(r.k)}</a>`).join('')}${I.whatsapp?`<a href="${linkWa()}" target="_blank" rel="noopener" aria-label="WhatsApp">${ic('whatsapp')}</a>`:''}</div></div>
+      <div><h4>Navegue</h4><ul>${MENU.map(([t,u])=>`<li><a href="${u}">${t}</a></li>`).join('')}<li><a href="/cadastro">Cadastro de visitantes</a></li></ul></div>
+      <div><h4>Contato</h4><ul>${e.rua?`<li>${esc(e.rua)}${e.bairro?' · '+esc(e.bairro):''}</li>`:''}<li>${esc(e.cidade||'Marília - SP')}</li>${I.telefone?`<li>${esc(I.telefone)}</li>`:''}${I.email?`<li><a href="mailto:${esc(I.email)}">${esc(I.email)}</a></li>`:''}${I.whatsapp?`<li><a href="${linkWa()}" target="_blank" rel="noopener">WhatsApp da igreja</a></li>`:''}</ul></div>
+    </div><div class="base"><span>© ${new Date().getFullYear()} ${esc(I.nomeCompleto)} · ${esc(I.nome)}</span><a href="/hub">Área da equipe</a></div></div>`;
+  }
+  // entrada suave dos elementos ao aparecerem na tela
+  function animar(raiz=document){
+    const itens=[...raiz.querySelectorAll('[data-anima]:not(.visivel)')];
+    if(!('IntersectionObserver' in window)){ itens.forEach(i=>i.classList.add('visivel')); return; }
+    const io=new IntersectionObserver(es=>es.forEach(en=>{ if(en.isIntersecting){ const d=en.target.dataset.atraso; if(d) en.target.style.animationDelay=d+'ms'; en.target.classList.add('visivel'); io.unobserve(en.target); } }),{threshold:.12,rootMargin:'0px 0px -40px 0px'});
+    itens.forEach(i=>io.observe(i));
+  }
+  function letreiro(el, texto){
+    if(!el) return; const item=`<span>${esc(texto)}<i>•</i></span>`;
+    el.innerHTML=`<div class="faixa">${item.repeat(8)}${item.repeat(8)}</div>`;
+  }
+  const idYoutube = u => (String(u||'').match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)||[])[1]||'';
+
+  window.JCR = { topo, rodape, animar, letreiro, idYoutube, I, DIAS, DIAS_L, esc, hora, ic, redesAtivas, enderecoTexto, mapaQuery, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, pendente, copiar, urlAbs, ymd };
   document.addEventListener('DOMContentLoaded', ()=>{ document.querySelectorAll('[data-ano]').forEach(e=>e.textContent=new Date().getFullYear()); });
 })();

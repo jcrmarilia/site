@@ -27,7 +27,7 @@ function Entrar() {
   if (estado.usuario) return <DashboardGestao />;
   const instalar = !estado.configurado;
   return <main className="test-registration login-page">
-    <a className="test-registration-brand" href="/hub"><b>JCR Marília</b></a>
+    <a className="test-registration-brand login-brand" href="/hub"><img src="/assets/logo-jcr-320.webp" alt="" width="88" height="88"/><b>JCR Marília</b></a>
     <section className="panel">
       <div className="test-registration-intro"><span>{instalar ? 'PRIMEIRO ACESSO' : 'GESTÃO DA IGREJA'}</span><h1>{instalar ? 'Vamos configurar o painel.' : 'Que bom ter você aqui.'}</h1>
         <p>{instalar ? 'Crie a conta do administrador. Depois você inclui o restante da equipe em Configurações.' : 'Entre com o e-mail e a senha cadastrados pela administração.'}</p></div>

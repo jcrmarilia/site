@@ -2,277 +2,205 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>JCR Marília · Igreja Jesus Cristo é a Resposta</title>
 <meta name="description" content="Igreja Jesus Cristo é a Resposta em Marília-SP: programação dos cultos, endereço, agenda de eventos, ministérios e redes sociais.">
-<meta name="theme-color" content="#142d50">
+<meta name="theme-color" content="#04060c">
 <meta property="og:type" content="website">
 <meta property="og:title" content="JCR Marília · Igreja Jesus Cristo é a Resposta">
 <meta property="og:description" content="Programação dos cultos, endereço, agenda e redes sociais da JCR Marília.">
 <meta property="og:url" content="https://jcrmarilia.netlify.app/paginainicial">
 <meta property="og:image" content="https://jcrmarilia.netlify.app/assets/og.png">
 <link rel="canonical" href="https://jcrmarilia.netlify.app/paginainicial">
-<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/favicon.png" type="image/png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Roboto:wght@400;500&family=Urbanist:wght@600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/jcr.css">
-<style>
-/* ---- navegação ---- */
-.nav{position:sticky;top:0;z-index:50;background:rgba(243,245,249,.86);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);border-bottom:1px solid transparent;transition:border-color .2s}
-.nav.scrolled{border-bottom-color:var(--line)}
-.nav .wrap{display:flex;align-items:center;gap:14px;height:68px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--navy);font-weight:800}
-.brand .logo{width:40px;height:40px;font-size:.95rem;border-radius:12px}
-.brand small{display:block;font-weight:600;color:var(--muted);font-size:.72rem;letter-spacing:.02em}
-.nav-links{display:none;gap:4px;margin-left:auto}
-.nav-links a{padding:8px 12px;border-radius:10px;color:var(--ink);text-decoration:none;font-weight:600;font-size:.92rem}
-.nav-links a:hover{background:var(--sky)}
-.nav .btn{margin-left:auto;padding:.6rem 1rem;font-size:.88rem}
-@media(min-width:900px){.nav-links{display:flex}.nav .btn{margin-left:8px}}
-
-/* ---- hero ---- */
-.hero{background:radial-gradient(120% 90% at 85% 0%,#2a5287 0%,var(--navy) 55%,#0e2140 100%);color:#fff;position:relative;overflow:hidden}
-.hero::after{content:"";position:absolute;inset:auto -10% -55% auto;width:620px;height:620px;border-radius:50%;border:1px solid rgba(255,255,255,.08);box-shadow:0 0 0 70px rgba(255,255,255,.025),0 0 0 140px rgba(255,255,255,.02)}
-.hero .wrap{position:relative;z-index:1;padding:clamp(56px,10vw,110px) 0 clamp(64px,10vw,104px)}
-.hero h1{font-family:var(--serif);font-weight:600;font-size:clamp(2.7rem,9vw,5.2rem);letter-spacing:-.035em;line-height:1}
-.hero h1 em{font-style:italic;color:var(--gold)}
-.hero p.lead{color:#d5e1f1;margin:18px 0 26px;font-size:1.12rem}
-.hero .acts{display:flex;flex-wrap:wrap;gap:10px}
-.prox{display:inline-flex;align-items:center;gap:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);padding:8px 14px 8px 10px;border-radius:999px;font-size:.92rem;margin-bottom:22px}
-.prox .dot{width:9px;height:9px;border-radius:50%;background:var(--gold);box-shadow:0 0 0 4px rgba(201,154,58,.25)}
-.prox b{font-weight:800}
-
-/* ---- seções ---- */
-section.sec{padding:clamp(56px,9vw,96px) 0}
-.sec-head{display:flex;flex-wrap:wrap;align-items:end;justify-content:space-between;gap:16px;margin-bottom:28px}
-.sec-head .lead{margin:.6rem 0 0}
-.alt{background:#fff;border-block:1px solid var(--line)}
-
-.prog{display:grid;gap:14px;grid-template-columns:repeat(auto-fill,minmax(230px,1fr))}
-.prog .card{padding:20px;position:relative}
-.prog .dia{font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--navy-3)}
-.prog .h{font-family:var(--serif);font-size:2.3rem;font-weight:600;color:var(--navy);line-height:1;margin:8px 0 6px}
-.prog .n{font-weight:700}
-.prog .d{color:var(--muted);font-size:.92rem;margin-top:4px}
-.prog .card.hoje{border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft),var(--sh)}
-.prog .tag{position:absolute;top:16px;right:16px;background:var(--gold-soft);color:#8a6312;font-size:.72rem;font-weight:800;padding:3px 9px;border-radius:999px}
-
-.eventos{display:grid;gap:12px}
-.ev{display:flex;gap:16px;align-items:center;padding:16px 18px}
-.ev .data{flex:none;width:62px;text-align:center;background:var(--navy);color:#fff;border-radius:14px;padding:8px 0}
-.ev .data b{display:block;font-family:var(--serif);font-size:1.6rem;line-height:1}
-.ev .data span{font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#cfdcef}
-.ev .info{flex:1;min-width:0}
-.ev .info b{display:block;font-size:1.04rem}
-.ev .info small{color:var(--muted)}
-.ev .btn{padding:.55rem .9rem;font-size:.82rem}
-
-.sobre{display:grid;gap:28px;align-items:center}
-@media(min-width:900px){.sobre{grid-template-columns:1.1fr .9fr}}
-.verso{background:var(--navy);color:#fff;border-radius:var(--r);padding:34px 30px;position:relative}
-.verso p{font-family:var(--serif);font-size:clamp(1.35rem,3vw,1.75rem);line-height:1.35;margin:0 0 14px;font-weight:500}
-.verso span{color:var(--gold);font-weight:700;letter-spacing:.06em;font-size:.85rem;text-transform:uppercase}
-.verso::before{content:"“";position:absolute;top:-18px;left:22px;font-family:var(--serif);font-size:6rem;color:var(--gold);line-height:1}
-.lider{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
-.lider div{background:var(--sky);border-radius:14px;padding:10px 14px}
-.lider b{display:block}.lider small{color:var(--muted)}
-
-.mins{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
-.mins .card{padding:18px}
-.mins b{display:block;color:var(--navy);margin-bottom:4px}
-.mins p{margin:0;color:var(--muted);font-size:.93rem}
-
-.local{display:grid;gap:18px}
-@media(min-width:900px){.local{grid-template-columns:.85fr 1.15fr}}
-.local .card{padding:24px}
-.local .end{font-size:1.15rem;font-weight:700;margin:6px 0 2px}
-.local .acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}
-.mapa{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);min-height:320px;background:var(--sky)}
-.mapa iframe{width:100%;height:100%;min-height:320px;border:0;display:block}
-
-.contrib{display:grid;gap:18px;align-items:center;padding:28px}
-@media(min-width:800px){.contrib{grid-template-columns:1fr auto}}
-.pix{display:flex;align-items:center;gap:10px;background:var(--bg);border:1px dashed var(--line);border-radius:14px;padding:12px 14px;font-weight:700;word-break:break-all}
-
-.redes{display:flex;flex-wrap:wrap;gap:10px}
-.rede{display:flex;align-items:center;gap:10px;padding:12px 18px;border-radius:999px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-weight:700}
-.rede:hover{border-color:var(--navy-3)}
-.rede .ico{width:22px;height:22px;color:var(--navy)}
-
-.cta{background:linear-gradient(135deg,var(--gold-soft),#fff);border:1px solid #ecdcb4;border-radius:24px;padding:clamp(28px,5vw,48px);display:grid;gap:18px;align-items:center}
-@media(min-width:800px){.cta{grid-template-columns:1fr auto}}
-.cta h2{font-size:clamp(1.6rem,3.5vw,2.2rem)}
-
-footer{background:var(--navy);color:#cbd7e8;padding:40px 0 calc(40px + env(safe-area-inset-bottom));font-size:.92rem}
-footer .wrap{display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center}
-footer a{color:#fff}
-footer .eq{color:#8fa6c6;text-decoration:none;font-size:.85rem}
-</style>
+<script>document.documentElement.classList.add('js')</script>
 </head>
 <body>
-<header class="nav" id="nav">
-  <div class="wrap">
-    <a class="brand" href="#topo"><span class="logo">JCR</span><span>JCR Marília<small>Jesus Cristo é a Resposta</small></span></a>
-    <nav class="nav-links" aria-label="Seções">
-      <a href="#programacao">Programação</a><a href="#agenda">Agenda</a><a href="#sobre">Quem somos</a><a href="#localizacao">Localização</a><a href="#contato">Contato</a>
-    </nav>
-    <a class="btn pri" href="/cadastro">Sou visitante</a>
-  </div>
-</header>
+<header id="topo"></header>
 
-<main id="topo">
-  <section class="hero">
+<main>
+  <!-- ===== Herói ===== -->
+  <section class="heroi" id="inicio">
+    <div class="heroi-fundo" id="heroi-fundo"></div>
+    <div class="wrap grade">
+      <div>
+        <div id="prox" data-anima="surge"></div>
+        <p class="rotulo" data-anima="sobe">JCR Marília</p>
+        <h1 class="titulo-xl" data-anima="sobe" data-atraso="100">Jesus Cristo é a <span class="metal">Resposta</span></h1>
+        <p class="texto" id="boas-vindas" data-anima="sobe" data-atraso="200"></p>
+        <ul class="marcadores" id="destaques" data-anima="sobe" data-atraso="300"></ul>
+        <div class="acoes" data-anima="sobe" data-atraso="400">
+          <a class="btn btn-gradiente" href="/cadastro">Quero fazer parte <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-contorno" href="#programacao">Ver horários</a>
+        </div>
+      </div>
+      <div class="selo" data-anima="zoom" data-atraso="200" id="selo"></div>
+    </div>
+    <span class="rolar" aria-hidden="true"></span>
+  </section>
+
+  <!-- ===== Programação ===== -->
+  <section class="secao grafite" id="programacao">
     <div class="wrap">
-      <div id="prox"></div>
-      <p class="eyebrow">Jesus Cristo é a Resposta</p>
-      <h1>JCR <em>Marília</em></h1>
-      <p class="lead" id="lema"></p>
-      <div class="acts" id="hero-acts"></div>
+      <div class="cabeca"><div><p class="rotulo" data-anima="sobe">Toda semana</p><h2 class="titulo" data-anima="sobe" data-atraso="100">Programação</h2><p class="texto" data-anima="sobe" data-atraso="200">Venha como você está. Você é muito bem-vindo em todos os nossos encontros.</p></div></div>
+      <div class="cartoes" id="prog"></div>
     </div>
   </section>
 
-  <section class="sec" id="programacao">
-    <div class="wrap">
-      <div class="sec-head"><div><p class="eyebrow">Toda semana</p><h2>Programação</h2><p class="lead">Venha como você está. Você é muito bem-vindo em todos os nossos encontros.</p></div></div>
-      <div class="prog" id="prog"></div>
-    </div>
-  </section>
+  <div class="letreiro" id="letreiro-1" aria-hidden="true"></div>
 
-  <section class="sec alt" id="agenda">
+  <!-- ===== Agenda ===== -->
+  <section class="secao" id="agenda">
     <div class="wrap">
-      <div class="sec-head"><div><p class="eyebrow">Fique por dentro</p><h2>Agenda</h2><p class="lead">Eventos, conferências e datas especiais da igreja.</p></div></div>
+      <div class="cabeca"><div><p class="rotulo" data-anima="sobe">Fique por dentro</p><h2 class="titulo" data-anima="sobe" data-atraso="100">Agenda</h2><p class="texto" data-anima="sobe" data-atraso="200">Eventos, conferências e datas especiais da igreja.</p></div></div>
       <div class="eventos" id="eventos"></div>
     </div>
   </section>
 
-  <section class="sec" id="sobre">
-    <div class="wrap sobre">
+  <!-- ===== Quem somos ===== -->
+  <section class="secao claro" id="sobre">
+    <div class="wrap duas">
       <div>
-        <p class="eyebrow">Quem somos</p>
-        <h2 id="sobre-titulo"></h2>
-        <p class="lead" id="sobre-texto" style="margin-top:14px"></p>
-        <div class="lider" id="lider"></div>
+        <p class="rotulo" data-anima="sobe">Quem somos</p>
+        <h2 class="titulo" id="sobre-titulo" data-anima="sobe" data-atraso="100"></h2>
+        <p class="texto" id="sobre-texto" style="margin-top:18px" data-anima="sobe" data-atraso="200"></p>
+        <div class="bloco-mv" id="mv" style="margin-top:34px"></div>
+        <div id="lider" style="display:flex;flex-wrap:wrap;gap:10px;margin-top:28px"></div>
       </div>
-      <div class="verso" id="verso"></div>
+      <div class="versiculo" id="verso" data-anima="direita"></div>
     </div>
   </section>
 
-  <section class="sec alt" id="ministerios" hidden>
+  <!-- ===== Ministérios ===== -->
+  <section class="secao claro-2" id="ministerios" hidden>
     <div class="wrap">
-      <div class="sec-head"><div><p class="eyebrow">Sirva com a gente</p><h2>Ministérios</h2></div></div>
-      <div class="mins" id="mins"></div>
+      <div class="cabeca"><div><p class="rotulo" data-anima="sobe">Sirva com a gente</p><h2 class="titulo" data-anima="sobe" data-atraso="100">Ministérios</h2></div></div>
+      <div class="cartoes" id="mins"></div>
     </div>
   </section>
 
-  <section class="sec" id="localizacao">
-    <div class="wrap">
-      <div class="sec-head"><div><p class="eyebrow">Como chegar</p><h2>Localização</h2></div></div>
-      <div class="local">
-        <div class="card" id="local-card"></div>
-        <div class="mapa" id="mapa"></div>
+  <!-- ===== Localização ===== -->
+  <section class="secao" id="localizacao">
+    <div class="wrap duas" style="align-items:stretch">
+      <div data-anima="esquerda">
+        <p class="rotulo">Como chegar</p>
+        <h2 class="titulo">Localização</h2>
+        <div id="local-info" style="margin-top:22px"></div>
       </div>
+      <div class="mapa" id="mapa" data-anima="direita"></div>
     </div>
   </section>
 
-  <section class="sec alt" id="contribua" hidden>
-    <div class="wrap">
-      <div class="sec-head"><div><p class="eyebrow">Dízimos e ofertas</p><h2>Contribua</h2></div></div>
-      <div class="card contrib" id="contrib"></div>
+  <div class="letreiro prata" id="letreiro-2" aria-hidden="true"></div>
+
+  <!-- ===== Contribua ===== -->
+  <section class="secao grafite" id="contribua" hidden>
+    <div class="wrap duas">
+      <div data-anima="esquerda"><p class="rotulo">Dízimos e ofertas</p><h2 class="titulo">Contribua</h2><p class="texto" id="contrib-texto" style="margin-top:16px"></p></div>
+      <div class="cartao" id="contrib" data-anima="direita"></div>
     </div>
   </section>
 
-  <section class="sec" id="contato">
+  <!-- ===== Contato ===== -->
+  <section class="secao" id="contato">
     <div class="wrap">
-      <div class="sec-head"><div><p class="eyebrow">Siga e fale com a gente</p><h2>Redes sociais e contato</h2></div></div>
-      <div class="redes" id="redes"></div>
-      <div style="height:40px"></div>
-      <div class="cta">
-        <div><h2>Primeira vez na JCR?</h2><p class="lead" style="margin:.6rem 0 0">Preencha seu cadastro em menos de 2 minutos. Vamos adorar conhecer você.</p></div>
-        <a class="btn navy" href="/cadastro">Fazer meu cadastro <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      <div class="cabeca"><div><p class="rotulo" data-anima="sobe">Siga e fale com a gente</p><h2 class="titulo" data-anima="sobe" data-atraso="100">Redes sociais e contato</h2></div></div>
+      <div class="redes" id="redes" data-anima="sobe" data-atraso="200"></div>
+      <div style="height:56px"></div>
+      <div class="chamada" data-anima="zoom">
+        <div><p class="rotulo">Primeira vez na JCR?</p><h2>Vamos adorar conhecer você.</h2><p class="texto" style="margin:.8rem 0 0">Preencha seu cadastro em menos de 2 minutos.</p></div>
+        <a class="btn btn-branco" href="/cadastro">Fazer meu cadastro <svg class="ico" viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
     </div>
   </section>
 </main>
 
-<footer>
-  <div class="wrap">
-    <div><strong style="color:#fff">JCR Marília</strong> · <span id="rod-end"></span><br>© <span data-ano></span> Igreja Jesus Cristo é a Resposta</div>
-    <a class="eq" href="/hub">Área da equipe</a>
-  </div>
-</footer>
+<footer id="rodape"></footer>
 
 <script src="/assets/igreja.js"></script>
 <script src="/assets/comum.js"></script>
 <script>
 (function(){
-  const {I, DIAS, esc, hora, ic, redesAtivas, enderecoTexto, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, pendente, copiar} = JCR;
+  const J=JCR, {I, DIAS, esc, hora, ic, redesAtivas, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, pendente, copiar} = J;
   const $ = s => document.querySelector(s);
+  J.topo('Início');
 
-  // Próximo culto
+  // Herói
   const prox = proximosCultos(1)[0];
-  if(prox) $('#prox').innerHTML = `<a href="#programacao" class="prox" style="color:#fff;text-decoration:none"><span class="dot"></span><span>Próximo culto: <b>${esc(rotuloQuando(prox))}</b> · ${esc(prox.nome)}</span></a>`;
-
-  $('#lema').textContent = I.lema + '. ' + I.boasVindas;
-  $('#hero-acts').innerHTML = `
-    <a class="btn pri" href="#programacao">${ic('clock')} Ver horários</a>
-    <a class="btn ghost-light" href="#localizacao">${ic('pin')} Como chegar</a>
-    ${I.whatsapp?`<a class="btn ghost-light" href="${linkWa()}" target="_blank" rel="noopener">${ic('whatsapp')} WhatsApp</a>`:''}`;
+  if(prox) $('#prox').innerHTML = `<a href="#programacao" class="proximo"><span class="ponto"></span><span>Próximo culto: <b>${esc(rotuloQuando(prox))}</b> · ${esc(prox.nome)}</span></a>`;
+  $('#boas-vindas').textContent = I.lema + '. ' + I.boasVindas;
+  $('#destaques').innerHTML = (I.destaques||[]).map(t=>`<li>${ic('check')}<span>${esc(t)}</span></li>`).join('');
+  const vid = J.idYoutube(I.videoFundo);
+  if(vid && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    const f=$('#heroi-fundo'); f.classList.add('com-video');
+    f.insertAdjacentHTML('afterbegin',`<iframe title="" tabindex="-1" aria-hidden="true" allow="autoplay; encrypted-media" src="https://www.youtube-nocookie.com/embed/${vid}?autoplay=1&mute=1&loop=1&playlist=${vid}&controls=0&showinfo=0&modestbranding=1&playsinline=1&rel=0"></iframe>`);
+  }
+  // selo giratório
+  const palavras = (I.palavrasSelo||[]).join(' • ') + ' • ';
+  $('#selo').innerHTML = `<svg class="anel" viewBox="0 0 400 400" aria-hidden="true"><defs><path id="circulo" d="M200,200 m-182,0 a182,182 0 1,1 364,0 a182,182 0 1,1 -364,0"/></defs><text textLength="1140" lengthAdjust="spacing"><textPath href="#circulo" textLength="1140" lengthAdjust="spacing">${esc(palavras)}</textPath></text></svg>
+    <img class="logo-centro" src="/assets/logo-jcr-640.webp" alt="Logo JCR - Jesus Cristo é a Resposta" width="640" height="640">`;
 
   // Programação
   const prog = [...(I.programacao||[])].sort((a,b)=>(+a.dia)-(+b.dia) || (a.hora||'').localeCompare(b.hora||''));
   const hoje = new Date().getDay();
-  $('#prog').innerHTML = prog.length ? prog.map(p=>`<div class="card ${+p.dia===hoje?'hoje':''}">${+p.dia===hoje?'<span class="tag">Hoje</span>':''}
-      <div class="dia">${DIAS[+p.dia]}</div><div class="h">${esc(hora(p.hora))}</div><div class="n">${esc(p.nome)}</div>${p.descricao?`<div class="d">${esc(p.descricao)}</div>`:''}</div>`).join('')
-    : `<div class="card" style="padding:20px">${pendente('Preencher a programação em assets/igreja.js')}</div>`;
+  $('#prog').innerHTML = prog.length ? prog.map((p,i)=>`<div class="cartao ${+p.dia===hoje?'hoje':''}" data-anima="sobe" data-atraso="${i*90}">${+p.dia===hoje?'<span class="etiqueta">Hoje</span>':''}
+      <div class="dia">${DIAS[+p.dia]}</div><div class="hora">${esc(hora(p.hora))}</div><div class="nome">${esc(p.nome)}</div>${p.descricao?`<div class="desc">${esc(p.descricao)}</div>`:''}</div>`).join('')
+    : `<div class="cartao">${pendente('Preencher a programação em assets/igreja.js')}</div>`;
+
+  J.letreiro($('#letreiro-1'), I.letreiro || 'Venha nos visitar');
+  J.letreiro($('#letreiro-2'), 'Jesus Cristo é a Resposta');
 
   // Agenda
   const evs = eventosFuturos();
-  $('#eventos').innerHTML = evs.length ? evs.map(e=>{ const f=fmtDataEvento(e.data); return `<div class="card ev"><div class="data"><b>${f.dia}</b><span>${f.mes}</span></div>
-      <div class="info"><b>${esc(e.titulo)}</b><small>${esc(f.semana)}${e.hora?' · '+esc(hora(e.hora)):''}${e.local?' · '+esc(e.local):''}</small>${e.descricao?`<div style="color:var(--muted);font-size:.93rem;margin-top:4px">${esc(e.descricao)}</div>`:''}</div>
-      <a class="btn" href="${linkAgendaGoogle(e)}" target="_blank" rel="noopener">${ic('cal')}<span>Agendar</span></a></div>`; }).join('')
-    : `<div class="card" style="padding:22px;color:var(--muted)">Nenhum evento especial agendado no momento.${I.redes.instagram?` Acompanhe as novidades no <a href="${esc(I.redes.instagram)}" target="_blank" rel="noopener">Instagram</a>.`:''}</div>`;
+  $('#eventos').innerHTML = evs.length ? evs.map((e,i)=>{ const f=fmtDataEvento(e.data); return `<div class="cartao evento" data-anima="sobe" data-atraso="${i*80}"><div class="data"><b>${f.dia}</b><span>${f.mes}</span></div>
+      <div class="info"><b>${esc(e.titulo)}</b><small>${esc(f.semana)}${e.hora?' · '+esc(hora(e.hora)):''}${e.local?' · '+esc(e.local):''}</small>${e.descricao?`<div style="color:var(--texto-2);margin-top:4px">${esc(e.descricao)}</div>`:''}</div>
+      <a class="btn btn-contorno" href="${linkAgendaGoogle(e)}" target="_blank" rel="noopener">${ic('cal')}<span>Agendar</span></a></div>`; }).join('')
+    : `<div class="cartao" style="color:var(--texto-2)">Nenhum evento especial agendado no momento.${I.redes.instagram?` Acompanhe as novidades no <a href="${esc(I.redes.instagram)}" target="_blank" rel="noopener" style="color:#fff">Instagram</a>.`:''}</div>`;
 
   // Quem somos
   $('#sobre-titulo').textContent = I.nomeCompleto;
   $('#sobre-texto').textContent = I.lema + '. ' + I.boasVindas;
-  $('#lider').innerHTML = (I.lideranca||[]).map(l=>`<div><b>${esc(l.nome)}</b><small>${esc(l.funcao)}</small></div>`).join('');
-  $('#verso').innerHTML = `<p>${esc(I.versiculo.texto)}</p><span>${esc(I.versiculo.ref)}</span>`;
+  const mv=[]; if(I.missao) mv.push(['Nossa missão',I.missao]); if(I.visao) mv.push(['Nossa visão',I.visao]);
+  $('#mv').innerHTML = mv.map(([t,v],i)=>`<div data-anima="sobe" data-atraso="${i*120}"><h3>${t}</h3><p>${esc(v)}</p></div>`).join('');
+  $('#lider').innerHTML = (I.lideranca||[]).map(l=>`<div class="cartao" style="padding:14px 18px"><b>${esc(l.nome)}</b><div class="desc" style="margin:0">${esc(l.funcao)}</div></div>`).join('');
+  $('#verso').innerHTML = `<p>“${esc(I.versiculo.texto)}”</p><span>${esc(I.versiculo.ref)}</span>`;
 
   // Ministérios
-  if((I.ministerios||[]).length){ $('#ministerios').hidden=false; $('#mins').innerHTML = I.ministerios.map(m=>`<div class="card"><b>${esc(m.nome)}</b>${m.descricao?`<p>${esc(m.descricao)}</p>`:''}</div>`).join(''); }
+  if((I.ministerios||[]).length){ $('#ministerios').hidden=false; $('#mins').innerHTML = I.ministerios.map((m,i)=>`<div class="cartao" data-anima="sobe" data-atraso="${i*80}"><span class="icone-giro" style="display:inline-flex;color:var(--azul);margin-bottom:10px">${ic('users')}</span><div class="nome">${esc(m.nome)}</div>${m.descricao?`<div class="desc">${esc(m.descricao)}</div>`:''}</div>`).join(''); }
 
   // Localização
   const e=I.endereco||{}; const temEnd=!!(e.rua||e.mapa);
-  $('#local-card').innerHTML = `<p class="eyebrow" style="color:var(--navy-3)">${ic('pin')} Endereço</p>
-    <div class="end">${temEnd?esc(e.rua||e.mapa):pendente('Preencher endereço')}</div>
-    <div style="color:var(--muted)">${esc([e.bairro,e.cidade].filter(Boolean).join(' · '))}${e.cep?' · CEP '+esc(e.cep):''}</div>
-    ${e.referencia?`<p style="margin:12px 0 0;font-size:.95rem">${esc(e.referencia)}</p>`:''}
-    ${temEnd?`<div class="acts"><a class="btn navy" href="${linkMaps()}" target="_blank" rel="noopener">${ic('map')} Google Maps</a><a class="btn" href="${linkWaze()}" target="_blank" rel="noopener">${ic('pin')} Waze</a></div>`:''}`;
-  $('#mapa').innerHTML = temEnd ? `<iframe title="Mapa da JCR Marília" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="${embedMaps()}"></iframe>` : `<div style="display:flex;align-items:center;justify-content:center;height:100%;min-height:320px;color:var(--muted);text-align:center;padding:20px">O mapa aparece quando o endereço for preenchido.</div>`;
-  $('#rod-end').textContent = enderecoTexto() || (e.cidade||'Marília - SP');
+  $('#local-info').innerHTML = `<div class="endereco">${temEnd?esc(e.rua||e.mapa):pendente('Preencher endereço')}</div>
+    <div class="texto" style="margin:0">${esc([e.bairro,e.cidade].filter(Boolean).join(' · '))}${e.cep?' · CEP '+esc(e.cep):''}</div>
+    ${e.referencia?`<p class="texto">${esc(e.referencia)}</p>`:''}
+    ${temEnd?`<div class="acoes" style="margin-top:26px"><a class="btn btn-gradiente" href="${linkMaps()}" target="_blank" rel="noopener">${ic('map')} Google Maps</a><a class="btn btn-contorno" href="${linkWaze()}" target="_blank" rel="noopener">${ic('pin')} Waze</a></div>`:''}`;
+  $('#mapa').innerHTML = temEnd ? `<iframe title="Mapa da JCR Marília" loading="lazy" referrerpolicy="no-referrer-when-downgrade" src="${embedMaps()}"></iframe>` : `<div style="display:flex;align-items:center;justify-content:center;height:100%;min-height:380px;color:var(--texto-2);text-align:center;padding:20px">O mapa aparece quando o endereço for preenchido.</div>`;
 
   // Contribuição
   const c=I.contribuicao||{};
-  if(c.pix || c.banco){ $('#contribua').hidden=false; $('#contrib').innerHTML = `<div><p style="margin:0 0 12px;font-size:1.05rem">${esc(c.texto)}</p>${c.titular?`<small style="color:var(--muted)">Favorecido: <b>${esc(c.titular)}</b></small>`:''}${c.banco?`<div style="color:var(--muted);font-size:.93rem;margin-top:4px">${esc(c.banco)}</div>`:''}</div>
-    ${c.pix?`<div><div class="pix">PIX: ${esc(c.pix)}</div><button class="btn pri" style="margin-top:10px;width:100%" id="copiar-pix">${ic('copy')} Copiar chave PIX</button></div>`:''}`;
+  if(c.pix || c.banco){ $('#contribua').hidden=false; $('#contrib-texto').textContent=c.texto;
+    $('#contrib').innerHTML = `${c.pix?`<p class="rotulo" style="margin-bottom:6px">Chave PIX</p><div style="font-weight:800;font-size:1.4rem;word-break:break-all">${esc(c.pix)}</div>`:''}${c.titular?`<div class="desc">Favorecido: ${esc(c.titular)}</div>`:''}${c.banco?`<div class="desc">${esc(c.banco)}</div>`:''}
+      ${c.pix?`<button class="btn btn-branco" style="margin-top:20px" id="copiar-pix">${ic('copy')} Copiar chave PIX</button>`:''}`;
     const b=$('#copiar-pix'); if(b) b.onclick=()=>copiar(c.pix,b); }
 
-  // Redes e contato
-  const redes = redesAtivas();
-  let rc = redes.map(r=>`<a class="rede" href="${esc(r.u)}" target="_blank" rel="noopener">${ic(r.k)} ${esc(r.nome)}</a>`).join('');
-  if(I.whatsapp) rc += `<a class="rede" href="${linkWa()}" target="_blank" rel="noopener" style="color:#fff;background:var(--wa);border-color:var(--wa)"><span style="color:#fff;display:flex">${ic('whatsapp')}</span> WhatsApp</a>`;
+  // Redes
+  let rc = redesAtivas().map(r=>`<a class="rede" href="${esc(r.u)}" target="_blank" rel="noopener">${ic(r.k)} ${esc(r.nome)}</a>`).join('');
+  if(I.whatsapp) rc += `<a class="rede" href="${linkWa()}" target="_blank" rel="noopener" style="background:var(--wa);border-color:var(--wa);color:#05210f">${ic('whatsapp')} WhatsApp</a>`;
   if(I.telefone) rc += `<a class="rede" href="tel:${esc(I.telefone.replace(/\D/g,''))}">${ic('phone')} ${esc(I.telefone)}</a>`;
   if(I.email) rc += `<a class="rede" href="mailto:${esc(I.email)}">${ic('mail')} ${esc(I.email)}</a>`;
   $('#redes').innerHTML = rc || pendente('Preencher redes sociais e WhatsApp');
 
-  // Dados estruturados para o Google (Church)
-  const ld = {'@context':'https://schema.org','@type':'Church','name':I.nomeCompleto+' — '+I.nome,'url':'https://jcrmarilia.netlify.app/paginainicial',
-    'address':{'@type':'PostalAddress','streetAddress':e.rua||undefined,'addressLocality':'Marília','addressRegion':'SP','postalCode':e.cep||undefined,'addressCountry':'BR'},
-    'sameAs':redes.map(r=>r.u), 'telephone': I.telefone||undefined};
-  const s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld); document.head.appendChild(s);
+  J.rodape();
+  J.animar();
 
-  // sombra do menu ao rolar
-  const nav=$('#nav'); addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>8),{passive:true});
+  // Dados estruturados para o Google
+  const ld={'@context':'https://schema.org','@type':'Church','name':I.nomeCompleto+' — '+I.nome,'url':'https://jcrmarilia.netlify.app/paginainicial','logo':'https://jcrmarilia.netlify.app/assets/logo-jcr-512.jpg',
+    'address':{'@type':'PostalAddress','streetAddress':e.rua||undefined,'addressLocality':'Marília','addressRegion':'SP','postalCode':e.cep||undefined,'addressCountry':'BR'},'sameAs':redesAtivas().map(r=>r.u),'telephone':I.telefone||undefined};
+  const s=document.createElement('script'); s.type='application/ld+json'; s.textContent=JSON.stringify(ld); document.head.appendChild(s);
 })();
 </script>
 </body>
