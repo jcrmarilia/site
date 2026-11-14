@@ -2,7 +2,7 @@
   "name": "jcr-painel",
   "version": "1.0.0",
   "scripts": {
-    "build": "rm -rf ../site/gestao/app ../site/testes/app && vite build --mode gestao && vite build --mode teste",
+    "build": "rm -rf ../site/gestao/app && vite build --mode gestao",
     "dev": "vite --mode gestao"
   },
   "dependencies": {

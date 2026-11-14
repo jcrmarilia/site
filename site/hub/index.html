@@ -47,7 +47,7 @@ select.in{width:100%;border:1px solid rgba(255,255,255,.2);border-radius:12px;pa
 <header id="topo"></header>
 <section class="cab-hub"><div class="wrap"><img src="/assets/logo-jcr-320.webp" alt="" width="110" height="110"><div><p class="rotulo" data-anima="sobe">JCR Marília</p><h1 class="titulo" data-anima="sobe" data-atraso="100">Hub de links</h1><p class="texto" data-anima="sobe" data-atraso="200">Todos os endereços da igreja em um só lugar.</p></div></div></section>
 <main class="wrap hub">
-  <div class="aviso"><b>Tudo em um só endereço:</b> cadastro, gestão e ambiente de testes funcionam dentro de <code>jcrmarilia.netlify.app</code>. Os links e QR Codes desta página são fixos e podem ser impressos.</div>
+  <div class="aviso"><b>Tudo em um só endereço:</b> cadastro de visitantes e gestão da igreja funcionam dentro de <code>jcrmarilia.netlify.app</code>. Os links e QR Codes desta página são fixos e podem ser impressos.</div>
   <div id="grupos"></div>
   <section class="grupo">
     <h2>QR Code para divulgar</h2>
@@ -79,10 +79,7 @@ select.in{width:100%;border:1px solid rgba(255,255,255,.2);border-radius:12px;pa
       {nome:'Localização', desc:'Endereço e mapa.', url:L.paginaInicial+'#localizacao', icone:'pin'}
     ]},
     {titulo:'Equipe da igreja', itens:[
-      {nome:'Gestão da igreja', desc:'Membros, chamada dos cultos, relatórios, financeiro e mensagens. Acesso restrito.', url:L.gestao, icone:'lock', cls:'lock'},
-      {nome:'Ambiente de testes', desc:'Painel com dados fictícios para treinar e avaliar o sistema.', url:L.testes, icone:'flask'},
-      {nome:'Cadastro do ambiente de testes', desc:'Formulário de visitante que grava só no banco de testes.', url:L.testes+'/cadastro', icone:'user'},
-      {nome:'Avaliações do teste', desc:'Comentários deixados por quem testou. Só administradores leem (exige login).', url:L.avaliacoes, icone:'star'}
+      {nome:'Gestão da igreja', desc:'Membros, chamada dos cultos, relatórios, financeiro e mensagens. Acesso restrito.', url:L.gestao, icone:'lock', cls:'lock'}
     ]}
   ];
   const redes = JCR.redesAtivas();
@@ -101,7 +98,7 @@ select.in{width:100%;border:1px solid rgba(255,255,255,.2);border-radius:12px;pa
 
   // QR Code
   const sel=document.getElementById('qr-sel');
-  const opcoes=[['Cadastro de visitantes',L.cadastro],['Link da bio','/'],['Página inicial',L.paginaInicial],['Ambiente de testes',L.testes]];
+  const opcoes=[['Cadastro de visitantes',L.cadastro],['Link da bio','/'],['Página inicial',L.paginaInicial]];
   sel.innerHTML=opcoes.map(([n,u])=>`<option value="${esc(abs(u))}">${esc(n)} — ${esc(abs(u).replace(/^https?:\/\//,''))}</option>`).join('');
   const box=document.getElementById('qr');
   function gerar(){ box.innerHTML=''; if(window.QRCode) new QRCode(box,{text:sel.value,width:600,height:600,colorDark:'#04163a',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); else box.textContent='Sem conexão para gerar o QR Code.'; }

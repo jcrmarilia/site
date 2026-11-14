@@ -49,7 +49,7 @@
 
   const enderecoTexto = () => { const e=I.endereco||{}; return [e.rua, e.bairro, e.cidade].filter(Boolean).join(' · '); };
   const mapaQuery = () => { const e=I.endereco||{}; return e.mapa || [e.rua, e.bairro, e.cidade].filter(Boolean).join(', ') || (I.nomeCompleto+' '+(e.cidade||'')); };
-  const linkMaps = () => 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(mapaQuery());
+  const linkMaps = () => (I.endereco&&I.endereco.linkMapa) || 'https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(mapaQuery());
   const linkWaze = () => 'https://waze.com/ul?navigate=yes&q='+encodeURIComponent(mapaQuery());
   const embedMaps = () => 'https://www.google.com/maps?q='+encodeURIComponent(mapaQuery())+'&output=embed';
   const linkWa = (txt='Olá! Vim pelo site da '+I.nome+'.') => I.whatsapp ? 'https://wa.me/'+I.whatsapp.replace(/\D/g,'')+'?text='+encodeURIComponent(txt) : '';
@@ -57,9 +57,9 @@
   // Próximos cultos a partir de agora (horário do aparelho)
   function proximosCultos(qtd=1){
     const lista=[]; const agora=new Date();
-    for(let add=0; add<14 && lista.length<qtd*3; add++){
+    for(let add=0; add<40 && lista.length<qtd*3; add++){
       const d=new Date(agora); d.setDate(agora.getDate()+add);
-      (I.programacao||[]).filter(p=>+p.dia===d.getDay()).forEach(p=>{
+      (I.programacao||[]).filter(p=>+p.dia===d.getDay() && (!p.semanaDoMes || Math.ceil(d.getDate()/7)===+p.semanaDoMes)).forEach(p=>{
         const [H,M]=(p.hora||'00:00').split(':').map(Number); const quando=new Date(d); quando.setHours(H,M,0,0);
         if(quando.getTime() > agora.getTime()-90*60000) lista.push({...p, quando, add});   // conta como "agora" até 1h30 depois do início
       });
@@ -72,7 +72,7 @@
     const h=hora(c.hora);
     if(c.add===0) return 'Hoje às '+h;
     if(c.add===1) return 'Amanhã às '+h;
-    return DIAS[c.quando.getDay()]+' às '+h;
+    return (c.add<7 ? DIAS[c.quando.getDay()] : c.quando.getDate()+'/'+String(c.quando.getMonth()+1).padStart(2,'0'))+' às '+h;
   }
   function eventosFuturos(){
     const hj=ymd(new Date());
@@ -85,6 +85,8 @@
     return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.titulo+' — '+I.nome)+'&dates='+datas+'&ctz=America/Sao_Paulo&details='+encodeURIComponent(e.descricao||'')+'&location='+encodeURIComponent(e.local||mapaQuery());
   }
   const fmtDataEvento = s => { const [y,m,d]=s.split('-'); const dt=new Date(+y,+m-1,+d); return {dia:d, mes:MESES[+m-1], semana:DIAS_L[dt.getDay()]}; };
+  const ORD=['','Primeiro','Segundo','Terceiro','Quarto','Quinto'];
+  const quandoAcontece = p => p.semanaDoMes ? ORD[p.semanaDoMes]+' '+DIAS_L[+p.dia].replace('-feira','')+' do mês' : (+p.dia===0||+p.dia===6 ? 'Todo ' : 'Toda ')+DIAS_L[+p.dia];
   const pendente = txt => `<span class="pendente">${esc(txt)}</span>`;
 
   async function copiar(txt, el){
@@ -95,7 +97,7 @@
   const urlAbs = p => location.origin + p;
 
   // ---------- topo, rodapé e animações compartilhados por todas as páginas ----------
-  const MENU = [['Início','/paginainicial'],['Programação','/paginainicial#programacao'],['Agenda','/paginainicial#agenda'],['Quem somos','/paginainicial#sobre'],['Localização','/paginainicial#localizacao'],['Contato','/paginainicial#contato']];
+  const MENU = [['Início','/paginainicial'],['Programação','/paginainicial#programacao'],['Quem somos','/paginainicial#sobre'],['Localização','/paginainicial#localizacao'],['Contato','/paginainicial#contato']];
   function topo(ativo=''){
     const el=document.getElementById('topo'); if(!el) return;
     el.className='topo';
@@ -136,6 +138,6 @@
   }
   const idYoutube = u => (String(u||'').match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/)||[])[1]||'';
 
-  window.JCR = { topo, rodape, animar, letreiro, idYoutube, I, DIAS, DIAS_L, esc, hora, ic, redesAtivas, enderecoTexto, mapaQuery, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, pendente, copiar, urlAbs, ymd };
+  window.JCR = { topo, rodape, animar, letreiro, idYoutube, I, DIAS, DIAS_L, esc, hora, ic, redesAtivas, enderecoTexto, mapaQuery, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, quandoAcontece, pendente, copiar, urlAbs, ymd };
   document.addEventListener('DOMContentLoaded', ()=>{ document.querySelectorAll('[data-ano]').forEach(e=>e.textContent=new Date().getFullYear()); });
 })();

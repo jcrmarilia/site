@@ -2,9 +2,7 @@ import { StrictMode, useEffect, useState, type FormEvent } from 'react';
 import { createRoot } from 'react-dom/client';
 import { LogIn, ShieldCheck, RefreshCw } from 'lucide-react';
 import './globals.css';
-import { TESTE } from './domain';
 import DashboardGestao from './dashboard-gestao';
-import DashboardTeste from './dashboard-teste';
 
 type Estado = { configurado: boolean; usuario: unknown } | null;
 
@@ -46,4 +44,4 @@ function Entrar() {
   </main>;
 }
 
-createRoot(document.getElementById('root')!).render(<StrictMode>{TESTE ? <DashboardTeste /> : <Entrar />}</StrictMode>);
+createRoot(document.getElementById('root')!).render(<StrictMode><Entrar /></StrictMode>);

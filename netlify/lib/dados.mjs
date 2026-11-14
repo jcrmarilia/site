@@ -1,12 +1,12 @@
 // Dados da igreja (membros, cultos, presença, financeiro, mensagens, configurações).
-// O mesmo código atende o sistema real (loja "jcr-dados") e o ambiente de testes ("jcr-testes").
+// Dados ficam na loja "jcr-dados" do Netlify Blobs.
 import crypto from 'node:crypto';
 import { loja, lerVarios, atualizar } from './armazenamento.mjs';
 import { hoje, somarDias, eligible, configPadrao, domingosFaltantes, paraInativar } from '../../shared/regras.mjs';
 
 export const COLECOES = ['members', 'services', 'attendance', 'transactions', 'messages', 'settings'];
 export const PADROES = { members: [], services: [], attendance: [], transactions: [], messages: [], settings: configPadrao, feedback: [] };
-export const lojaDoAmbiente = teste => loja(teste ? 'jcr-testes' : 'jcr-dados');
+export const lojaDoAmbiente = () => loja('jcr-dados');
 
 export class Erro extends Error { constructor(msg, status = 400) { super(msg); this.status = status; } }
 const falha = (cond, msg, status) => { if (cond) throw new Erro(msg, status); };
@@ -47,7 +47,6 @@ const id = () => crypto.randomUUID();
 // ---------- leitura + automações ----------
 export async function carregar(teste, { comAutomacoes = true } = {}) {
   const st = lojaDoAmbiente(teste);
-  if (teste) await semearTestes(st);
   let d = await lerVarios(st, COLECOES, PADROES);
   d.settings = { ...configPadrao, ...d.settings };
   if (comAutomacoes) d = await automacoes(st, d);
@@ -55,6 +54,12 @@ export async function carregar(teste, { comAutomacoes = true } = {}) {
 }
 
 async function automacoes(st, d) {
+  // 0) ajuste único: o culto de domingo é o "Culto da Família", às 10h
+  if (!d.settings.ajusteFamilia) {
+    const antigo = d.settings.sundayTitle === 'Culto de Domingo';
+    d.settings = { ...configPadrao, ...(await atualizar(st, 'settings', configPadrao, s => ({ ...configPadrao, ...s, ...(s?.sundayTitle === 'Culto de Domingo' || !s?.sundayTitle ? { sundayTitle: 'Culto da Família', sundayTime: '10:00' } : {}), ajusteFamilia: true }))) };
+    if (antigo) d.services = await atualizar(st, 'services', [], ss => ss.map(s => s.auto && s.title === 'Culto de Domingo' ? { ...s, title: 'Culto da Família', time: '10:00' } : s));
+  }
   // 1) cultos de domingo automáticos
   if (d.settings.autoSunday && !d.settings.autoStart) {
     const hj = hoje(); const ini = somarDias(hj, -new Date(hj + 'T12:00:00Z').getUTCDay());
@@ -216,7 +221,7 @@ export async function executar(teste, acao, d, usuario) {
       const s = {
         name: texto(d.name, { min: 3, max: 120, nome: 'Nome da igreja' }), acronym: texto(d.acronym, { min: 1, max: 8, nome: 'Sigla' }),
         address: texto(d.address, { max: 250, nome: 'Endereço' }), groupLink: linkGrupo(d.groupLink),
-        autoSunday: !!d.autoSunday, sundayTitle: texto(d.sundayTitle || 'Culto de Domingo', { min: 3, max: 120, nome: 'Nome do culto de domingo' }),
+        autoSunday: !!d.autoSunday, sundayTitle: texto(d.sundayTitle || 'Culto da Família', { min: 3, max: 120, nome: 'Nome do culto de domingo' }),
         sundayTime, autoStart: data(d.autoStart, 'Data inicial dos domingos', true), inactivityWeeks: semanas,
         missingText: texto(d.missingText, { min: 3, max: 2000, nome: 'Mensagem de falta' })
       };
@@ -255,52 +260,4 @@ export async function cadastroPublico(teste, d, ip) {
     });
     return ms;
   });
-}
-
-// ---------- avaliações (ambiente de testes) ----------
-const AREAS = ['Geral', 'Membros', 'Cultos e presença', 'Relatórios', 'Financeiro', 'Mensagens', 'Cadastro de visitantes'];
-const TIPOS = ['Funcionou bem', 'Encontrei um problema', 'Tenho uma sugestão'];
-export async function salvarAvaliacao(d) {
-  const st = lojaDoAmbiente(true);
-  const r = { id: id(), name: texto(d.name, { max: 100, nome: 'Nome' }), area: um(d.area, AREAS, 'Área'), kind: um(d.kind, TIPOS, 'Tipo'),
-    message: texto(d.message, { min: 8, max: 4000, nome: 'Avaliação' }), createdAt: new Date().toISOString() };
-  await atualizar(st, 'feedback', [], f => [r, ...f].slice(0, 1000));
-}
-export async function listarAvaliacoes() {
-  return (await lerVarios(lojaDoAmbiente(true), ['feedback'], PADROES)).feedback;
-}
-
-// ---------- dados fictícios do ambiente de testes ----------
-async function semearTestes(st) {
-  const { members } = await lerVarios(st, ['members'], PADROES);
-  if (members.length) return;
-  await restaurarTestes();
-}
-export async function restaurarTestes() {
-  const st = lojaDoAmbiente(true);
-  const hj = hoje(), mes = hj.slice(0, 7);
-  const inicio = somarDias(hj, -42);
-  const nomes = ['Ana Paula Martins', 'André Luiz Costa', 'Beatriz Oliveira', 'Bruno Henrique Silva', 'Carla Regina Santos', 'Daniel Almeida', 'Débora Cristina Lima', 'Eduardo Ferreira', 'Elisa Moreira', 'Felipe Rodrigues', 'Gabriela Souza', 'Helena Ribeiro', 'Isabel Carvalho', 'João Pedro Gomes', 'Juliana Mendes', 'Lucas Oliveira', 'Marcos Vinícius', 'Maria Aparecida', 'Paulo Roberto', 'Raquel Dias', 'Renata Fernandes', 'Ricardo Alves', 'Sara Nascimento', 'Sérgio Azevedo'];
-  const agora = new Date().toISOString();
-  const members = nomes.map((name, i) => ({ id: 'teste-p' + i, name, phone: '1490000' + String(1000 + i * 37).slice(0, 4), email: '', birthDate: '', area: ['Louvor', 'Recepção', 'Infantil', ''][i % 4], status: i > 20 ? 'visitor' : 'member', joinedDate: inicio, notes: '', source: i > 20 ? 'self' : 'manual', consent: i % 3 ? 1 : 0, consentAt: '', archived: 0, archivedDate: '', createdAt: agora, updatedAt: agora }));
-  const services = [];
-  for (let k = 0; k <= 42; k++) {
-    const dia = somarDias(inicio, k); const sem = new Date(dia + 'T12:00:00Z').getUTCDay();
-    if (sem === 0) services.push({ id: 'dom-' + dia, title: 'Culto de Domingo', date: dia, time: '18:00', status: dia < hj ? 'closed' : 'open', auto: true, createdAt: agora });
-    if (sem === 3 && dia <= hj) services.push({ id: 'teste-q' + k, title: 'Culto de Oração', date: dia, time: '20:00', status: dia < hj ? 'closed' : 'open', createdAt: agora });
-  }
-  const attendance = [];
-  services.filter(s => s.date < hj).forEach((s, j) => members.slice(0, 21).forEach((m, i) => {
-    if ((i + j) % 6 === 0) attendance.push({ serviceId: s.id, memberId: m.id, value: 'absent' });
-    else if ((i + j) % 13 === 0) attendance.push({ serviceId: s.id, memberId: m.id, value: 'excused' });
-  }));
-  const transactions = [
-    { id: 't1', date: mes + '-01', kind: 'income', category: 'Dízimos', description: 'Dízimos · Culto de Domingo', amount: 185000, memberId: null, paymentMethod: 'Pix' },
-    { id: 't2', date: mes + '-04', kind: 'income', category: 'Ofertas', description: 'Ofertas · Culto de Oração', amount: 48700, memberId: null, paymentMethod: 'Dinheiro' },
-    { id: 't3', date: mes + '-05', kind: 'expense', category: 'Manutenção', description: 'Manutenção do espaço', amount: 32000, memberId: null, paymentMethod: 'Pix' },
-    { id: 't4', date: mes + '-06', kind: 'income', category: 'Dízimos', description: 'Contribuições da semana', amount: 97500, memberId: null, paymentMethod: 'Pix' }
-  ].map(t => ({ ...t, createdAt: agora }));
-  const messages = [{ id: 'msg1', title: 'Um convite para estarmos juntos', body: 'Olá, {nome}! Esperamos você em nosso próximo culto. Será uma alegria estarmos juntos!', targetType: 'all', targetId: '', groupLink: '', scheduledAt: new Date(Date.now() + 86400000).toISOString(), status: 'scheduled', createdAt: agora }];
-  const settings = { ...configPadrao, autoStart: inicio };
-  await Promise.all(Object.entries({ members, services, attendance, transactions, messages, settings }).map(([k, v]) => st.setJSON(k, v)));
 }

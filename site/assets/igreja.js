@@ -28,12 +28,13 @@ window.IGREJA = {
 
   // Endereço — "mapa" é o texto pesquisado no Google Maps (pode ser o próprio endereço)
   endereco: {
-    rua: '',            // ex.: 'Rua Exemplo, 123'
-    bairro: '',         // ex.: 'Centro'
+    rua: 'Rua Clotilde Calabresi Magalhães, 248',
+    bairro: 'Jardim Continental',
     cidade: 'Marília - SP',
     cep: '',
     referencia: '',     // ex.: 'Ao lado da praça…'
-    mapa: ''            // ex.: 'Rua Exemplo, 123, Marília - SP'
+    mapa: 'Rua Clotilde Calabresi Magalhães, 248, Jardim Continental, Marília - SP',
+    linkMapa: 'https://share.google/qGu1Y5IMr9RBWSNJp'  // link do Google Maps da igreja (botão "Como chegar")
   },
 
   // Contatos (WhatsApp só números, com 55 + DDD: '5514999999999')
@@ -43,16 +44,20 @@ window.IGREJA = {
 
   // Redes sociais: cole o link completo. Vazio = não aparece.
   redes: {
-    instagram: '',
-    youtube: '',
+    instagram: 'https://www.instagram.com/jcr_marilia/',
+    youtube: 'https://www.youtube.com/@jcrmarilia',
     facebook: '',
     tiktok: '',
     spotify: ''
   },
 
-  // Programação semanal. dia: 0=domingo, 1=segunda … 6=sábado. hora: 'HH:MM'
+  // Programação. dia: 0=domingo, 1=segunda … 6=sábado. hora: 'HH:MM'
+  // semanaDoMes (opcional): 1 = só na 1ª semana do mês (ex.: 1º sábado), 2 = 2ª … ; sem o campo = toda semana
   programacao: [
-    // { dia: 0, hora: '19:00', nome: 'Culto da Família', descricao: '' },
+    { dia: 0, hora: '10:00', nome: 'Culto da Família', descricao: '' },
+    { dia: 3, hora: '20:00', nome: 'Culto de Oração', descricao: '' },
+    { dia: 4, hora: '20:00', nome: 'Entre Mulheres', descricao: 'Na casa da pastora' },
+    { dia: 6, hora: '20:00', nome: 'Vigília', descricao: '', semanaDoMes: 1 },
   ],
 
   // Agenda/eventos. Eventos com data passada somem sozinhos.
@@ -83,8 +88,6 @@ window.IGREJA = {
     paginaInicial: '/paginainicial',
     cadastro: '/cadastro',
     gestao: '/gestao',
-    testes: '/testes',
-    avaliacoes: '/avaliacoes',
     bio: '/bio',
     hub: '/hub'
   }

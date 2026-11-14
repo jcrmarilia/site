@@ -13,7 +13,7 @@ process.env.JCR_BLOBS_LOCAL = `http://localhost:${port}|local`;
 const { default: api } = await import('../netlify/functions/api.mjs');
 
 const tipos = { '.html': 'text/html; charset=utf-8', '.js': 'text/javascript', '.css': 'text/css', '.svg': 'image/svg+xml', '.png': 'image/png', '.json': 'application/json', '.txt': 'text/plain', '.xml': 'application/xml', '.ico': 'image/x-icon', '.webp': 'image/webp' };
-const spa = [['/gestao', '/gestao/index.html'], ['/testes', '/testes/index.html']];
+const spa = [['/gestao', '/gestao/index.html']];
 
 http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://localhost:${porta}`);
@@ -22,7 +22,6 @@ http.createServer(async (req, res) => {
     const r = await api(new Request(url, { method: req.method, headers: req.headers, body: ['GET', 'HEAD'].includes(req.method) ? undefined : Buffer.concat(chunks) }), { ip: req.socket.remoteAddress });
     const h = Object.fromEntries(r.headers); res.writeHead(r.status, h); res.end(Buffer.from(await r.arrayBuffer())); return;
   }
-  if (url.pathname === '/avaliacoes') { res.writeHead(302, { Location: '/gestao/#avaliacoes' }); return res.end(); }
   let p = decodeURIComponent(url.pathname);
   let arq = path.join(raiz, 'site', p);
   if (fs.existsSync(arq) && fs.statSync(arq).isDirectory()) {

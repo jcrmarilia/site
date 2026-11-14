@@ -65,7 +65,7 @@ html.js .lk.dest.visivel{animation:sobe 1.1s var(--entrada) both,degrade 30s eas
 <script src="/assets/comum.js"></script>
 <script>
 (function(){
-  const J=JCR, {I, esc, ic, redesAtivas, linkMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos} = J;
+  const J=JCR, {I, esc, ic, redesAtivas, linkMaps, linkWa, proximosCultos, rotuloQuando} = J;
   const $ = s => document.querySelector(s);
   $('#sub').textContent = I.lema;
   const palavras = (I.palavrasSelo||[]).join(' • ') + ' • ';
@@ -73,14 +73,12 @@ html.js .lk.dest.visivel{animation:sobe 1.1s var(--entrada) both,degrade 30s eas
   const p = proximosCultos(1)[0];
   if(p) $('#prox').innerHTML = `<a class="prox-bio" href="/paginainicial#programacao"><span class="ponto"></span><div><small>Próximo culto</small><b>${esc(rotuloQuando(p))}</b> · ${esc(p.nome)}</div></a>`;
   const temEnd = !!(I.endereco && (I.endereco.rua || I.endereco.mapa));
-  const evs = eventosFuturos();
   let n=0;
   const item = (href, icone, titulo, sub, cls='', ext=false) => `<a class="lk ${cls}" href="${href}" ${ext?'target="_blank" rel="noopener"':''} data-anima="sobe" data-atraso="${200+(n++)*70}">${ic(icone)}<span>${esc(titulo)}${sub?`<small>${esc(sub)}</small>`:''}</span>${ic('next','seta')}</a>`;
   let h = '';
   h += item('/cadastro','user','Sou visitante','Faça seu cadastro em 2 minutos','dest');
   h += item('/paginainicial#programacao','clock','Horários dos cultos','Programação da semana');
   h += temEnd ? item(linkMaps(),'pin','Como chegar','Abrir no mapa','',true) : item('/paginainicial#localizacao','pin','Como chegar','Endereço e mapa');
-  if(evs.length) h += item('/paginainicial#agenda','cal','Agenda de eventos', evs[0].titulo);
   if(I.whatsapp) h += item(linkWa(),'whatsapp','Fale com a gente','WhatsApp da igreja','',true);
   if(I.redes.youtube) h += item(I.redes.youtube,'youtube','Cultos no YouTube','Assista e inscreva-se','',true);
   if(I.contribuicao && (I.contribuicao.pix||I.contribuicao.banco)) h += item('/paginainicial#contribua','heart','Dízimos e ofertas','PIX e dados bancários');

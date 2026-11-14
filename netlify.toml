@@ -1,5 +1,5 @@
 # Netlify — publica a pasta "site" e a API (netlify/functions) a cada atualização no GitHub.
-# O painel já vai compilado em site/gestao e site/testes (fonte em app/, compilar com: cd app && npm run build).
+# O painel já vai compilado em site/gestao (fonte em app/, compilar com: cd app && npm run build).
 [build]
   publish = "site"
   command = ""
@@ -21,20 +21,10 @@
   to = "/paginainicial"
   status = 301
 
-[[redirects]]
-  from = "/avaliacoes"
-  to = "/gestao/#avaliacoes"
-  status = 302
-
-# Painel (aplicativo de página única): qualquer endereço dentro de /gestao e /testes abre o painel
+# Painel (aplicativo de página única): qualquer endereço dentro de /gestao abre o painel
 [[redirects]]
   from = "/gestao/*"
   to = "/gestao/index.html"
-  status = 200
-
-[[redirects]]
-  from = "/testes/*"
-  to = "/testes/index.html"
   status = 200
 
 [[redirects]]
@@ -45,11 +35,6 @@
 # ---------- Cabeçalhos ----------
 [[headers]]
   for = "/gestao/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-[[headers]]
-  for = "/testes/*"
   [headers.values]
     X-Robots-Tag = "noindex, nofollow"
 

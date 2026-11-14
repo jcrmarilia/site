@@ -75,15 +75,3 @@ export function EquipeAcessos({ me, aviso }: { me: Me; aviso: (t: string) => voi
     </section>
   </>;
 }
-
-export function Avaliacoes() {
-  const [lista, setLista] = useState<any[] | null>(null), [erro, setErro] = useState('');
-  useEffect(() => { fetch('/api/feedback', { cache: 'no-store' }).then(async r => { const j: any = await r.json(); if (!r.ok) throw new Error(j.error); setLista(j.feedback); }).catch(e => setErro(e.message)); }, []);
-  if (erro) return <section className="panel owner-access"><h2>{erro}</h2></section>;
-  if (!lista) return <div className="notice">Carregando avaliações…</div>;
-  return <div className="feedback-owner">
-    <p className="feedback-count">{lista.length} avaliações recebidas no ambiente de testes · <a className="text-btn" href="/testes/">Abrir ambiente de testes</a></p>
-    {lista.length ? lista.map(r => <article className="panel feedback-review" key={r.id}><div><b>{r.kind}</b><span className="pill blue">{r.area}</span><small>{new Date(r.createdAt).toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}</small></div><p>{r.message}</p><small>{r.name || 'Participante sem identificação'}</small></article>)
-      : <section className="panel owner-access"><h2>As primeiras impressões vão aparecer aqui.</h2><p>Compartilhe o link de testes e peça para as pessoas usarem “Deixar avaliação”.</p></section>}
-  </div>;
-}

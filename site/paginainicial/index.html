@@ -53,14 +53,6 @@
 
   <div class="letreiro" id="letreiro-1" aria-hidden="true"></div>
 
-  <!-- ===== Agenda ===== -->
-  <section class="secao" id="agenda">
-    <div class="wrap">
-      <div class="cabeca"><div><p class="rotulo" data-anima="sobe">Fique por dentro</p><h2 class="titulo" data-anima="sobe" data-atraso="100">Agenda</h2><p class="texto" data-anima="sobe" data-atraso="200">Eventos, conferências e datas especiais da igreja.</p></div></div>
-      <div class="eventos" id="eventos"></div>
-    </div>
-  </section>
-
   <!-- ===== Quem somos ===== -->
   <section class="secao claro" id="sobre">
     <div class="wrap duas">
@@ -125,7 +117,7 @@
 <script src="/assets/comum.js"></script>
 <script>
 (function(){
-  const J=JCR, {I, DIAS, esc, hora, ic, redesAtivas, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, eventosFuturos, linkAgendaGoogle, fmtDataEvento, pendente, copiar} = J;
+  const J=JCR, {I, DIAS, esc, hora, ic, redesAtivas, linkMaps, linkWaze, embedMaps, linkWa, proximosCultos, rotuloQuando, quandoAcontece, pendente, copiar} = J;
   const $ = s => document.querySelector(s);
   J.topo('Início');
 
@@ -146,20 +138,14 @@
 
   // Programação
   const prog = [...(I.programacao||[])].sort((a,b)=>(+a.dia)-(+b.dia) || (a.hora||'').localeCompare(b.hora||''));
-  const hoje = new Date().getDay();
-  $('#prog').innerHTML = prog.length ? prog.map((p,i)=>`<div class="cartao ${+p.dia===hoje?'hoje':''}" data-anima="sobe" data-atraso="${i*90}">${+p.dia===hoje?'<span class="etiqueta">Hoje</span>':''}
-      <div class="dia">${DIAS[+p.dia]}</div><div class="hora">${esc(hora(p.hora))}</div><div class="nome">${esc(p.nome)}</div>${p.descricao?`<div class="desc">${esc(p.descricao)}</div>`:''}</div>`).join('')
+  const agora = new Date(), hoje = agora.getDay();
+  const ehHoje = p => +p.dia===hoje && (!p.semanaDoMes || Math.ceil(agora.getDate()/7)===+p.semanaDoMes);
+  $('#prog').innerHTML = prog.length ? prog.map((p,i)=>`<div class="cartao ${ehHoje(p)?'hoje':''}" data-anima="sobe" data-atraso="${i*90}">${ehHoje(p)?'<span class="etiqueta">Hoje</span>':''}
+      <div class="dia">${esc(quandoAcontece(p))}</div><div class="hora">${esc(hora(p.hora))}</div><div class="nome">${esc(p.nome)}</div>${p.descricao?`<div class="desc">${esc(p.descricao)}</div>`:''}</div>`).join('')
     : `<div class="cartao">${pendente('Preencher a programação em assets/igreja.js')}</div>`;
 
   J.letreiro($('#letreiro-1'), I.letreiro || 'Venha nos visitar');
   J.letreiro($('#letreiro-2'), 'Jesus Cristo é a Resposta');
-
-  // Agenda
-  const evs = eventosFuturos();
-  $('#eventos').innerHTML = evs.length ? evs.map((e,i)=>{ const f=fmtDataEvento(e.data); return `<div class="cartao evento" data-anima="sobe" data-atraso="${i*80}"><div class="data"><b>${f.dia}</b><span>${f.mes}</span></div>
-      <div class="info"><b>${esc(e.titulo)}</b><small>${esc(f.semana)}${e.hora?' · '+esc(hora(e.hora)):''}${e.local?' · '+esc(e.local):''}</small>${e.descricao?`<div style="color:var(--texto-2);margin-top:4px">${esc(e.descricao)}</div>`:''}</div>
-      <a class="btn btn-contorno" href="${linkAgendaGoogle(e)}" target="_blank" rel="noopener">${ic('cal')}<span>Agendar</span></a></div>`; }).join('')
-    : `<div class="cartao" style="color:var(--texto-2)">Nenhum evento especial agendado no momento.${I.redes.instagram?` Acompanhe as novidades no <a href="${esc(I.redes.instagram)}" target="_blank" rel="noopener" style="color:#fff">Instagram</a>.`:''}</div>`;
 
   // Quem somos
   $('#sobre-titulo').textContent = I.nomeCompleto;

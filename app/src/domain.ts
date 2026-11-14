@@ -10,8 +10,7 @@ export type Settings = { name: string; acronym: string; address: string; groupLi
 export type Me = { id: string; name: string; email: string; role: string } | null;
 export type Data = { members: Member[]; services: Service[]; attendance: Attendance[]; transactions: Transaction[]; messages: Message[]; settings: Settings; formUrl: string; me?: Me };
 
-export const TESTE = import.meta.env.MODE === 'teste';
-export const API = TESTE ? '/api/teste' : '/api';
+export const API = '/api';
 
 export const today: () => string = hoje;
 export const sortMembers = (m: Member[]): Member[] => ordenarPessoas(m);

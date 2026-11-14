@@ -47,7 +47,7 @@ export const presentesNoCulto = (data, s) => data.members.filter(m => eligible(m
 
 export const configPadrao = {
   name: 'JCR Marília', acronym: 'JCR', address: '', groupLink: '',
-  autoSunday: true, sundayTitle: 'Culto de Domingo', sundayTime: '18:00', autoStart: '', skippedSundays: [],
+  autoSunday: true, sundayTitle: 'Culto da Família', sundayTime: '10:00', autoStart: '', skippedSundays: [],
   inactivityWeeks: 8,
   missingText: 'Olá, {nome}! Sentimos sua falta no culto. Esperamos que esteja tudo bem com você. Estamos aqui se precisar. Será uma alegria ter você conosco novamente!'
 };

@@ -3,9 +3,7 @@
 //   /api/data            dados do sistema real (exige login)
 //   /api/usuarios        equipe e acessos (administrador)
 //   /api/registration    cadastro público de visitantes
-//   /api/feedback        avaliações do ambiente de testes (administrador)
-//   /api/teste/*         ambiente de testes (sem login, dados fictícios)
-import { carregar, executar, cadastroPublico, salvarAvaliacao, listarAvaliacoes, restaurarTestes, Erro } from '../lib/dados.mjs';
+import { carregar, executar, cadastroPublico, Erro } from '../lib/dados.mjs';
 import { usuarioDaSessao, usuarios, publico, login, criarToken, cookieSessao, bloqueado, registrarErro, codigoValido, validarSenha, emailValido, hashSenha, sistema } from '../lib/acesso.mjs';
 import { atualizar } from '../lib/armazenamento.mjs';
 import crypto from 'node:crypto';
@@ -32,7 +30,7 @@ const PAPEIS = ['admin', 'tesouraria', 'equipe'];
 
 function resposta(dados, req, teste, usuario) {
   const origem = new URL(req.url).origin;
-  const r = { ...dados, formUrl: origem + (teste ? '/testes/cadastro' : '/cadastro') };
+  const r = { ...dados, formUrl: origem + '/cadastro' };
   if (!teste) {
     r.me = publico(usuario);
     if (!podeFinanceiro(usuario)) r.transactions = [];
@@ -46,21 +44,6 @@ export default async (req, context) => {
   const metodo = req.method;
   try {
     if (metodo !== 'GET' && metodo !== 'HEAD') mesmaOrigem(req);
-
-    // ---------- ambiente de testes ----------
-    if (rota.startsWith('teste/')) {
-      const sub = rota.slice(6);
-      if (sub === 'data' && metodo === 'GET') return json(resposta(await carregar(true), req, true));
-      if (sub === 'data' && metodo === 'POST') {
-        const b = await corpo(req);
-        const r = await executar(true, b.action, b.data, null);
-        return json({ ok: true, ...r });
-      }
-      if (sub === 'registration' && metodo === 'POST') { await cadastroPublico(true, await corpo(req, 12000), ipDe(req, context)); return json({ ok: true }); }
-      if (sub === 'feedback' && metodo === 'POST') { await salvarAvaliacao(await corpo(req, 12000)); return json({ ok: true }); }
-      if (sub === 'reset' && metodo === 'POST') { await restaurarTestes(); return json({ ok: true }); }
-      return json({ error: 'Endereço não encontrado.' }, 404);
-    }
 
     // ---------- cadastro público ----------
     if (rota === 'registration' && metodo === 'POST') {
@@ -119,11 +102,6 @@ export default async (req, context) => {
       const b = await corpo(req);
       const r = await executar(false, b.action, b.data, usuario);
       return json({ ok: true, ...r });
-    }
-
-    if (rota === 'feedback' && metodo === 'GET') {
-      if (usuario.role !== 'admin') throw new Erro('Somente administradores veem as avaliações.', 403);
-      return json({ feedback: await listarAvaliacoes() });
     }
 
     if (rota === 'usuarios') {
