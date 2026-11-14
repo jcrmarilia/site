@@ -1,0 +1,70 @@
+# Netlify — publica a pasta "site" a cada atualização no GitHub (sem etapa de build)
+[build]
+  publish = "site"
+  command = ""
+
+# ---------- Endereços curtos ----------
+# Os sistemas de cadastro, gestão e testes ainda rodam no endereço original.
+# Quando forem migrados, basta trocar o destino aqui: links e QR Codes já divulgados continuam valendo.
+
+[[redirects]]
+  from = "/bio"
+  to = "/"
+  status = 200
+
+[[redirects]]
+  from = "/inicio"
+  to = "/paginainicial"
+  status = 301
+
+[[redirects]]
+  from = "/cadastro"
+  to = "https://comunhao-jcr-cadastro.castormariliastoanto.chatgpt.site/"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/gestao"
+  to = "https://comunhao-jcr-gestao.castormariliastoanto.chatgpt.site/"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/testes/cadastro"
+  to = "https://jcr-marilia-testes.castormariliastoanto.chatgpt.site/cadastro"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/avaliacoes"
+  to = "https://jcr-marilia-testes.castormariliastoanto.chatgpt.site/avaliacoes"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/testes"
+  to = "https://jcr-marilia-testes.castormariliastoanto.chatgpt.site/"
+  status = 302
+  force = true
+
+[[redirects]]
+  from = "/hub/*"
+  to = "/hub/index.html"
+  status = 200
+
+# ---------- Cabeçalhos ----------
+[[headers]]
+  for = "/hub/*"
+  [headers.values]
+    X-Robots-Tag = "noindex, nofollow"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+[[headers]]
+  for = "/assets/igreja.js"
+  [headers.values]
+    Cache-Control = "public, max-age=0, must-revalidate"

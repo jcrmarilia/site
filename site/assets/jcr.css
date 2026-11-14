@@ -1,0 +1,35 @@
+/* JCR Marília — estilos compartilhados */
+:root{
+  --navy:#142d50; --navy-2:#1d3d69; --navy-3:#2a5287;
+  --sky:#e2eaf5; --bg:#f3f5f9; --card:#fff; --ink:#14243d; --muted:#55657d; --line:#dbe3ee;
+  --gold:#c99a3a; --gold-soft:#f7efdc; --wa:#1faa53;
+  --r:18px; --sh:0 1px 2px rgba(20,45,80,.06),0 10px 30px rgba(20,45,80,.07);
+  --serif:'Fraunces',Georgia,'Times New Roman',serif;
+  --sans:'Plus Jakarta Sans',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{margin:0;font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.55;font-size:16px}
+img{max-width:100%;display:block}
+a{color:var(--navy-3)}
+.wrap{width:min(100% - 2.5rem, 1080px);margin-inline:auto}
+.eyebrow{font-size:.74rem;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--gold);margin:0 0 .6rem}
+h1,h2,h3{line-height:1.12;margin:0;letter-spacing:-.02em}
+h2{font-family:var(--serif);font-weight:600;font-size:clamp(1.8rem,4.5vw,2.6rem);color:var(--navy)}
+.lead{color:var(--muted);font-size:1.06rem;max-width:46ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.55rem;padding:.85rem 1.25rem;border-radius:999px;border:1.5px solid var(--line);background:var(--card);color:var(--ink);font-weight:700;text-decoration:none;font-size:.95rem;cursor:pointer;transition:transform .12s,background .12s,border-color .12s;font-family:inherit}
+.btn:hover{transform:translateY(-1px);border-color:var(--navy-3)}
+.btn.pri{background:var(--gold);border-color:var(--gold);color:#1b1405}
+.btn.pri:hover{background:#d8a948}
+.btn.navy{background:var(--navy);border-color:var(--navy);color:#fff}
+.btn.ghost-light{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.35);color:#fff}
+.btn.wa{background:var(--wa);border-color:var(--wa);color:#fff}
+.btn svg{width:18px;height:18px;flex:none}
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--sh)}
+.ico{width:20px;height:20px;fill:none;stroke:currentColor;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ico.fill{fill:currentColor;stroke:none}
+.pendente{display:inline-block;background:#fff4d6;color:#8a6200;border:1px dashed #d9b354;border-radius:8px;padding:.1rem .45rem;font-size:.85em;font-weight:600}
+.logo{display:inline-flex;align-items:center;justify-content:center;width:46px;height:46px;border-radius:14px;background:var(--navy);color:#fff;font-family:var(--serif);font-weight:700;font-size:1.05rem;letter-spacing:.02em;box-shadow:inset 0 -3px 0 var(--gold)}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+:focus-visible{outline:3px solid var(--gold);outline-offset:3px;border-radius:6px}
+@media (prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}

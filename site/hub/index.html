@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Hub · JCR Marília</title>
+<meta name="theme-color" content="#142d50">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/jcr.css">
+<style>
+header.top{background:var(--navy);color:#fff;padding:36px 0 30px}
+header.top .wrap{display:flex;gap:16px;align-items:center}
+header.top .logo{background:#fff;color:var(--navy);width:54px;height:54px;font-size:1.15rem}
+header.top h1{font-family:var(--serif);font-weight:600;font-size:clamp(1.7rem,4vw,2.3rem)}
+header.top p{margin:4px 0 0;color:#c8d6ea}
+main{padding:30px 0 60px}
+.grupo{margin-bottom:34px}
+.grupo h2{font-family:var(--sans);font-size:.8rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;color:var(--navy-3);margin:0 0 12px}
+.cards{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(290px,1fr))}
+.lc{padding:18px;display:flex;flex-direction:column;gap:10px}
+.lc .t{display:flex;gap:12px;align-items:flex-start}
+.lc .ic{width:42px;height:42px;border-radius:12px;background:var(--sky);color:var(--navy);display:flex;align-items:center;justify-content:center;flex:none}
+.lc .ic.gold{background:var(--gold-soft);color:#8a6312}
+.lc .ic.lock{background:#e9edf3;color:#3b4a60}
+.lc b{display:block;font-size:1.02rem}
+.lc small{color:var(--muted);display:block;line-height:1.4}
+.lc code{font-size:.8rem;color:var(--navy-3);background:var(--bg);padding:4px 8px;border-radius:8px;word-break:break-all;font-family:ui-monospace,Menlo,Consolas,monospace}
+.lc .acts{display:flex;gap:8px;margin-top:auto;flex-wrap:wrap}
+.lc .btn{padding:.55rem .95rem;font-size:.85rem}
+.qr-area{display:grid;gap:18px;padding:22px}
+@media(min-width:760px){.qr-area{grid-template-columns:260px 1fr;align-items:center}}
+#qr{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px;display:flex;align-items:center;justify-content:center;aspect-ratio:1}
+#qr img,#qr canvas{width:100%!important;height:auto!important}
+select.in{width:100%;border:1px solid var(--line);border-radius:12px;padding:11px 12px;font:inherit;background:#fff;margin:8px 0 12px}
+.aviso{background:var(--gold-soft);border:1px solid #ecdcb4;border-radius:14px;padding:14px 16px;font-size:.92rem;margin-bottom:28px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><span class="logo">JCR</span><div><h1>Hub JCR Marília</h1><p>Todos os links da igreja em um só lugar.</p></div></div></header>
+<main class="wrap">
+  <div class="aviso"><b>Dica:</b> use os endereços curtos (<code>jcrmarilia.netlify.app/cadastro</code>, <code>/gestao</code>…). Se algum sistema mudar de lugar, só o redirecionamento é atualizado e os links e QR Codes já divulgados continuam funcionando.</div>
+  <div id="grupos"></div>
+  <section class="grupo">
+    <h2>QR Code para divulgar</h2>
+    <div class="card qr-area">
+      <div id="qr"></div>
+      <div>
+        <b style="font-size:1.1rem">Gere o QR Code de qualquer link</b>
+        <select class="in" id="qr-sel"></select>
+        <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn navy" id="qr-baixar">Baixar imagem</button><button class="btn" id="qr-copiar">Copiar link</button></div>
+        <small style="display:block;color:var(--muted);margin-top:12px">Imprima o QR do cadastro na recepção e no telão para os visitantes.</small>
+      </div>
+    </div>
+  </section>
+</main>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="/assets/igreja.js"></script>
+<script src="/assets/comum.js"></script>
+<script>
+(function(){
+  const {I, esc, ic, copiar, urlAbs} = JCR;
+  const L = I.links;
+  const GRUPOS = [
+    {titulo:'Para membros e visitantes', itens:[
+      {nome:'Página inicial', desc:'Programação, agenda, localização, redes sociais e contribuição.', url:L.paginaInicial, icone:'home'},
+      {nome:'Cadastro de visitantes', desc:'Formulário público para quem visita a igreja.', url:L.cadastro, icone:'user', cls:'gold'},
+      {nome:'Link da bio do Instagram', desc:'Página de links rápidos para colocar na bio.', url:'/', icone:'instagram'},
+      {nome:'Programação', desc:'Horários dos cultos da semana.', url:L.paginaInicial+'#programacao', icone:'clock'},
+      {nome:'Localização', desc:'Endereço e mapa.', url:L.paginaInicial+'#localizacao', icone:'pin'}
+    ]},
+    {titulo:'Equipe da igreja', itens:[
+      {nome:'Gestão da igreja', desc:'Membros, chamada dos cultos, relatórios, financeiro e mensagens. Acesso restrito.', url:L.gestao, icone:'lock', cls:'lock'},
+      {nome:'Ambiente de testes', desc:'Painel com dados fictícios para treinar e avaliar o sistema.', url:L.testes, icone:'flask'},
+      {nome:'Cadastro do ambiente de testes', desc:'Formulário de visitante que grava só no banco de testes.', url:L.testes+'/cadastro', icone:'user'},
+      {nome:'Avaliações do teste', desc:'Comentários deixados por quem testou. Só o administrador lê.', url:L.avaliacoes, icone:'star'}
+    ]}
+  ];
+  const redes = JCR.redesAtivas();
+  if(redes.length || I.whatsapp) GRUPOS.push({titulo:'Redes sociais', itens:[
+    ...redes.map(r=>({nome:r.nome, desc:'Perfil oficial da JCR Marília.', url:r.u, icone:r.k, ext:true})),
+    ...(I.whatsapp?[{nome:'WhatsApp', desc:'Contato da igreja.', url:JCR.linkWa(), icone:'whatsapp', ext:true}]:[])
+  ]});
+
+  const abs = u => /^https?:/.test(u) ? u : urlAbs(u);
+  document.getElementById('grupos').innerHTML = GRUPOS.map(g=>`<section class="grupo"><h2>${esc(g.titulo)}</h2><div class="cards">${g.itens.map(i=>`
+    <div class="card lc"><div class="t"><span class="ic ${i.cls||''}">${ic(i.icone)}</span><div><b>${esc(i.nome)}</b><small>${esc(i.desc)}</small></div></div>
+      <code>${esc(abs(i.url).replace(/^https?:\/\//,''))}</code>
+      <div class="acts"><a class="btn navy" href="${esc(i.url)}" ${i.ext||/^https?:/.test(i.url)?'target="_blank" rel="noopener"':''}>Abrir</a><button class="btn" data-copiar="${esc(abs(i.url))}">${ic('copy')} Copiar</button></div></div>`).join('')}</div></section>`).join('');
+  document.addEventListener('click', e=>{ const b=e.target.closest('[data-copiar]'); if(b) copiar(b.dataset.copiar, b); });
+
+  // QR Code
+  const sel=document.getElementById('qr-sel');
+  const opcoes=[['Cadastro de visitantes',L.cadastro],['Link da bio','/'],['Página inicial',L.paginaInicial],['Ambiente de testes',L.testes]];
+  sel.innerHTML=opcoes.map(([n,u])=>`<option value="${esc(abs(u))}">${esc(n)} — ${esc(abs(u).replace(/^https?:\/\//,''))}</option>`).join('');
+  const box=document.getElementById('qr');
+  function gerar(){ box.innerHTML=''; if(window.QRCode) new QRCode(box,{text:sel.value,width:600,height:600,colorDark:'#142d50',colorLight:'#ffffff',correctLevel:QRCode.CorrectLevel.M}); else box.textContent='Sem conexão para gerar o QR Code.'; }
+  sel.onchange=gerar; gerar();
+  document.getElementById('qr-copiar').onclick=e=>copiar(sel.value,e.currentTarget);
+  document.getElementById('qr-baixar').onclick=()=>{ const cv=box.querySelector('canvas'); const im=box.querySelector('img'); const url=cv?cv.toDataURL('image/png'):im&&im.src; if(!url) return;
+    const a=document.createElement('a'); a.href=url; a.download='qrcode-'+sel.options[sel.selectedIndex].text.split(' — ')[0].toLowerCase().normalize('NFD').replace(/[^a-z0-9]+/g,'-')+'.png'; a.click(); };
+})();
+</script>
+</body>
+</html>
