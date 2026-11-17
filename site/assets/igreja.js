@@ -44,8 +44,8 @@ window.IGREJA = {
 
   // Redes sociais: cole o link completo. Vazio = não aparece.
   redes: {
-    instagram: 'https://www.instagram.com/jcr_marilia/',
-    youtube: 'https://www.youtube.com/@jcrmarilia',
+    instagram: 'https://www.instagram.com/jesuscristoresposta/',
+    youtube: 'https://www.youtube.com/channel/UCbDx-z3CxxpFAonLEWnwN9A',
     facebook: '',
     tiktok: '',
     spotify: ''
